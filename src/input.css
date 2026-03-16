@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+}
+
+:root {
+  --swiper-pagination-color: #ea580c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#main-nav.scrolled {
+  background-color: #212529;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.propertiesSwiper .swiper-button-next,
+.propertiesSwiper .swiper-button-prev {
+  background-color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --swiper-navigation-color: #ea580c;
+  --swiper-navigation-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.propertiesSwiper .swiper-button-next:hover,
+.propertiesSwiper .swiper-button-prev:hover {
+  background-color: #fff7ed;
+  transform: scale(1.1);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Flechas de Carruseles (Propiedades Y Precios) */
+.propertiesSwiper .swiper-button-next,
+.propertiesSwiper .swiper-button-prev,
+.pricingSwiper .swiper-button-next,   /* <--- NUEVO */
+.pricingSwiper .swiper-button-prev {  /* <--- NUEVO */
+  background-color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --swiper-navigation-color: #ea580c;
+  --swiper-navigation-size: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Efecto Hover en las flechas */
+.propertiesSwiper .swiper-button-next:hover,
+.propertiesSwiper .swiper-button-prev:hover,
+.pricingSwiper .swiper-button-next:hover,  /* <--- NUEVO */
+.pricingSwiper .swiper-button-prev:hover { /* <--- NUEVO */
+  background-color: #fff7ed;
+  transform: scale(1.1);
+}
+

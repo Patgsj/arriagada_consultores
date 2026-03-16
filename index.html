@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Arriagada Consultores | Venta de Parcelas, Topografía y Asesoría en Ñuble</title>
+
+  <meta name="description" content="Gestión inmobiliaria integral en la Región de Ñuble. Venta de parcelas con Rol Propio en San Fabián y San Carlos. Servicios de topografía, subdivisión SAG y asesoría legal.">
+  
+  <meta name="keywords" content="venta de parcelas Ñuble, topografía San Carlos, subdivisión de terrenos, corretaje de propiedades, parcelas san fabian, asesoría legal inmobiliaria">
+  
+  <meta name="author" content="Arriagada Consultores">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://arriagadaconsultores.cl/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Arriagada Consultores | Terrenos y Topografía en Ñuble">
+  <meta property="og:description" content="Encuentra tu parcela ideal o regulariza tu terreno con expertos. Topografía, Legal y Ventas en un solo lugar.">
+  <meta property="og:image" content="https://arriagadaconsultores.cl/assets/img/HERO3.webp">
+  <meta property="og:url" content="https://arriagadaconsultores.cl/">
+
+  <link rel="icon" href="./assets/img/FAVICON-arriagada-consultores.svg" type="image/png">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="./src/output.css" rel="stylesheet">
+
+  <style>
+    /* Evita el scroll horizontal y saltos extraños */
+    body, html {
+        overflow-x: hidden;
+    }
+
+    #main-nav.scrolled {
+      background-color: #212529;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* --- WIDGET WHATSAPP BLINDADO --- */
+    #whatsapp-widget {
+        position: fixed; /* SIEMPRE PEGADO A LA PANTALLA */
+        bottom: 25px;
+        right: 25px;
+        z-index: 2147483647; /* ENCIMA DE TODO (Valor máximo) */
+        font-family: 'Poppins', sans-serif;
+        -webkit-tap-highlight-color: transparent; /* Quita el parpadeo azul al tocar en celular */
+    }
+
+    /* Ajuste para que no moleste en celulares pequeños */
+    @media (max-width: 768px) {
+        #whatsapp-widget {
+            bottom: 20px; 
+            right: 15px;
+        }
+    }
+
+    #chat-window {
+        display: none;
+        width: 300px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        position: absolute;
+        bottom: 75px; 
+        right: 0;
+        overflow: hidden;
+        transform-origin: bottom right;
+        animation: scaleIn 0.2s ease-out;
+    }
+
+    .chat-header {
+        background-color: #075E54;
+        padding: 15px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .chat-header i { font-size: 24px; }
+    .brand-name { margin: 0; font-weight: 600; font-size: 14px; }
+    .response-time { margin: 0; font-size: 11px; opacity: 0.8; }
+
+    .chat-body {
+        padding: 15px;
+        background-color: #e5ddd5;
+        background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .chat-message {
+        background: white;
+        padding: 8px 12px;
+        border-radius: 0 10px 10px 10px;
+        display: inline-block;
+        max-width: 90%;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        position: relative;
+        font-size: 13px;
+        color: #111b21;
+    }
+
+    .message-time {
+        font-size: 9px;
+        color: #999;
+        display: block;
+        text-align: right;
+        margin-top: 3px;
+    }
+
+    .chat-footer {
+        padding: 10px;
+        background: white;
+        text-align: center;
+        border-top: 1px solid #eee;
+    }
+
+    .whatsapp-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: #25D366;
+        color: white;
+        text-decoration: none;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 13px;
+        transition: background 0.3s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        width: fit-content;
+        margin: 0 auto;
+    }
+    .whatsapp-link:hover { background-color: #128C7E; }
+
+    #whatsapp-button {
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.2s;
+    }
+    #whatsapp-button:hover { transform: scale(1.05); }
+
+    .notification-badge {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        background-color: #ef4444;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border: 2px solid white;
+        z-index: 10;
+        animation: pulse 2s infinite;
+    }
+
+    .circle-button {
+        background-color: #25D366;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .circle-button i { font-size: 32px; color: white; }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "RealEstateAgent",
+        "name": "Arriagada Consultores",
+        "image": "https://arriagadaconsultores.cl/assets/img/FAVICON-arriagada-consultores.svg",
+        "@id": "https://arriagadaconsultores.cl",
+        "url": "https://arriagadaconsultores.cl",
+        "telephone": "+56995838619",
+        "email": "info@arriagadaconsultores.cl",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "San Carlos",
+          "addressRegion": "Ñuble",
+          "addressCountry": "CL"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "-36.4244", 
+          "longitude": "-71.9575"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "sameAs": [
+          "https://www.facebook.com/arriagadaconsultores", 
+          "https://www.instagram.com/arriagadaconsultores"
+        ],
+        "priceRange": "$$$",
+        "description": "Agencia líder en gestión inmobiliaria y topografía en la Región de Ñuble. Especialistas en venta de parcelas con Rol Propio, subdivisión de terrenos rurales, estudios de títulos y asesoría legal."
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Servicios de Topografía Ñuble",
+        "provider": { "@id": "https://arriagadaconsultores.cl" },
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "San Carlos" },
+          { "@type": "AdministrativeArea", "name": "San Fabián de Alico" },
+          { "@type": "AdministrativeArea", "name": "Chillán" },
+          { "@type": "AdministrativeArea", "name": "Cauquenes" }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios Inmobiliarios",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Levantamiento Topográfico" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Venta de Parcelas con Rol Propio" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Subdivisión de Predios Rústicos (SAG)" } }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-gray-50 font-poppins">
+
+<div id="navbar-placeholder"></div>
+
+<div id="inicio" class="swiper-container mySwiper w-full h-screen relative" style="--swiper-navigation-color: #fff;">
+  <div class="swiper-wrapper">
+    
+    <div class="swiper-slide relative overflow-hidden">
+      <div
+        class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105"
+        style="background-image: url(./assets/img/HERO-0.jpg)"
+        role="img" aria-label="Parcelación Las Pilcas en San Fabián de Alico"
+      ></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent"></div>
+      
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+        <span class="text-white font-bold tracking-[0.2em] uppercase text-sm mb-4 animate-fade-in-up">
+            San Fabián de Alico
+        </span>
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
+          Parcelación <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Las Pilcas</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed drop-shadow-md max-w-[85%] md:max-w-2xl mx-auto md:mx-0">
+          Tu proyecto de vida en la precordillera. 5.000 m² con Rol Propio, <strong>Agua Potable</strong> y Luz Soterrada.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="parcelacion-las-pilcas" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg hover:-translate-y-1">
+            Ver Proyecto
+            <i class="fa-solid fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper-slide relative overflow-hidden">
+      <div
+        class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105"
+        style="background-image: url(./assets/img/HERO2.webp)"
+        role="img" aria-label="Reunión de asesoría inmobiliaria personalizada"
+      ></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent"></div>
+      
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+        <span class="text-white font-bold tracking-[0.2em] uppercase text-sm mb-4">Servicio Integral</span>
+        <h2 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
+          Atención <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Personalizada</span>
+        </h2>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed drop-shadow-md max-w-[85%] md:max-w-2xl mx-auto md:mx-0">
+          Desde la búsqueda hasta la escritura. Nuestro equipo de topógrafos y asesores legales te acompaña con un servicio cercano y transparente.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="./#contacto" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg hover:-translate-y-1">
+            Agenda una Consulta
+            <i class="fa-solid fa-calendar-check ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper-slide relative overflow-hidden">
+      <div
+        class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105"
+        style="background-image: url(./assets/img/HERO1.webp)"
+        role="img" aria-label="Paisaje de terreno con alta plusvalía"
+      ></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent"></div>
+      
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex flex-col justify-center items-center md:items-start text-center md:text-left">
+        <span class="text-white font-bold tracking-[0.2em] uppercase text-sm mb-4">Alta Plusvalía</span>
+        <h2 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
+          Invierte en <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Tu Futuro</span>
+        </h2>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed drop-shadow-md max-w-[85%] md:max-w-2xl mx-auto md:mx-0">
+          Identificamos terrenos con gran potencial de crecimiento y rentabilidad en las mejores ubicaciones del sur de Chile.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="https://wa.me/56995838619?text=Hola,%20necesito%20más%20información" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg hover:-translate-y-1">
+            Contáctanos Ahora
+            <i class="fa-solid fa-phone ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-next z-20"></div>
+  <div class="swiper-button-prev z-20"></div>
+</div>
+
+<section id="servicios" class="w-full bg-gray-50 py-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20">
+
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm bg-orange-100 px-3 py-1 rounded-full">Lo que hacemos</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-6">
+        Nuestros Servicios <span class="text-orange-600">Inmobiliarios</span>
+      </h2>
+      <p class="text-gray-600 text-lg leading-relaxed">
+        Ofrecemos un servicio integral que combina asesoría técnica, jurídica y comercial. Desde la topografía hasta la venta, te acompañamos en cada paso con transparencia y profesionalismo.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
+          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/VENTAS.svg" alt="Icono servicio de ventas">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Ventas de propiedades</h3>
+        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
+          Gestión completa desde la tasación hasta la firma. Estrategias de marketing efectivas para operaciones rápidas y rentables.
+        </p>
+        <a href="venta-propiedades" class="inline-flex items-center text-orange-600 font-bold text-sm hover:text-orange-700 transition-colors mt-auto">
+          Saber más <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </article>
+
+      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
+          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/PARCELACION.svg" alt="Icono servicio de medición">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Medición de terrenos</h3>
+        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
+          Levantamientos topográficos y subdivisiones precisas. Convertimos tu terreno en un proyecto legalmente viable.
+        </p>
+        <a href="medicion-terrenos" class="inline-flex items-center text-orange-600 font-bold text-sm hover:text-orange-700 transition-colors mt-auto">
+          Saber más <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </article>
+
+      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
+          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/TITULO.svg" alt="Icono servicio estudio de títulos">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Estudios de título</h3>
+        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
+          Ofrecemos este servicio de forma independiente. Revisamos la historia legal de cualquier propiedad para que compres seguro.
+        </p>
+        <a href="estudio-titulos" class="inline-flex items-center text-orange-600 font-bold text-sm hover:text-orange-700 transition-colors mt-auto">
+          Saber más <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </article>
+
+      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
+          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/LEGAL.svg" alt="Icono servicio asesoría legal">
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Asesoría legal</h3>
+        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
+          Respaldo jurídico integral en contratos y escrituras. Protegemos tus intereses en cada trámite legal.
+        </p>
+        <a href="asesoria-legal" class="inline-flex items-center text-orange-600 font-bold text-sm hover:text-orange-700 transition-colors mt-auto">
+          Saber más <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="propiedades" class="w-full bg-white py-24 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 relative">
+    
+    <div class="text-center mb-12">
+      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm bg-orange-50 px-3 py-1 rounded-full">Oportunidades Únicas</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-6">
+        Propiedades <span class="text-orange-600">Destacadas</span>
+      </h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+        Desliza para explorar nuestra selección exclusiva de casas y parcelas disponibles en el mercado.
+      </p>
+    </div>
+
+    <div class="swiper propertiesSwiper w-full !pt-10 !pb-24 px-4 relative">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide h-auto">
+          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border border-gray-100">
+            <a href="casa_Rosario" class="relative block h-64 overflow-hidden">
+              <img class="w-full h-full object-cover transform group-hover:scale-110 group-hover:grayscale transition-all duration-500" src="./assets/img_cards_propiedades/casa_vecino.jpg" alt="Venta de Casa Parcela en San Carlos, Ñuble">
+              <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Disponible</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
+                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              </div>
+            </a>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">Casa Parcela (5000m²)</h3>
+                <p class="text-xs text-gray-500 flex items-center">
+                  <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> San Carlos, Ñuble
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-4 justify-start">
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bed mr-1 text-orange-500"></i> 5 Hab</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bath mr-1 text-orange-500"></i> 3 Baños</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-ruler-combined mr-1 text-orange-500"></i> 200 m²</span>
+              </div>
+              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
+                <span class="text-lg font-bold text-orange-600">$215.000.000</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="swiper-slide h-auto">
+          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border border-gray-100">
+            <a href="terreno_las_tunas" class="relative block h-64 overflow-hidden">
+              <img class="w-full h-full object-cover transform group-hover:scale-110 group-hover:grayscale transition-all duration-500" src="./assets/img_cards_propiedades/Terreno_sector_Las_Tunas.jpg" alt="Venta de Terreno Agrícola 7,3 ha en Cauquenes, Maule">
+              <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Disponible</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
+                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              </div>
+            </a>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">Terreno Agrícola 7,3 ha</h3>
+                <p class="text-xs text-gray-500 flex items-center">
+                  <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> Cauquenes, Maule
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-4 justify-start">
+                  <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
+                  <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
+                  <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
+              </div>
+              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
+                <span class="text-lg font-bold text-orange-600">$56.000.000</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="swiper-slide h-auto">
+          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border border-gray-100">
+            <a href="terrenos_trehuaco" class="relative block h-64 overflow-hidden">
+              <img class="w-full h-full object-cover transform group-hover:scale-110 group-hover:grayscale transition-all duration-500" src="./assets/img_cards_propiedades/Terrrenos_Urbanos_Trehuaco.JPG" alt="Venta de Terrenos Urbanos en Trehuaco, Ñuble">
+              <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Disponible</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
+                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              </div>
+            </a>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">Terrenos Sector Urbano</h3>
+                <p class="text-xs text-gray-500 flex items-center">
+                  <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> Trehuaco, Ñuble
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-4 justify-start">
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
+              </div>
+              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Consulta</span>
+                <span class="text-lg font-bold text-orange-600 cursor-pointer hover:underline">Ver Valores</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="swiper-slide h-auto">
+          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border-2 border-transparent hover:border-orange-500/20">
+            <a href="parcelacion-las-pilcas" class="relative block h-64 overflow-hidden">
+              <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500  group-hover:grayscale-0" src="./assets/img_cards_propiedades/Las_Pilcas.jpg" alt="Venta de Parcelación Las Pilcas en San Fabián, Ñuble">
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              </div>
+              <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-md uppercase tracking-wide">Vendidas 1 y 34</span>
+              <span class="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">Disponibles</span>
+            </a>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">Parcelación Las Pilcas</h3>
+                <p class="text-xs text-gray-500 flex items-center">
+                  <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> San Fabián, Ñuble
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-4 justify-start">
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
+              </div>
+              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
+                <span class="text-xl font-bold text-orange-600">$65.000.000</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+      <div class="swiper-pagination !bottom-0"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="w-full py-40 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <div>
+        <span class="text-orange-600 font-bold tracking-wider uppercase text-sm">Sobre Nosotros</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-6">
+          Más que corredores, somos tus <span class="text-orange-600">Socios Estratégicos</span>
+        </h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-8 text-justify">
+          En <strong>Arriagada Consultores</strong> entendemos que comprar o vender una propiedad no es solo una transacción, es un paso importante en tu vida. Nos diferenciamos por romper el molde tradicional: no somos vendedores distantes, somos asesores que combinan la <strong>precisión técnica de la topografía</strong> con una gestión comercial transparente.
+        </p>
+
+        <div class="space-y-6">
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl">
+              <i class="fa-solid fa-handshake"></i>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-gray-800">Atención 100% Personalizada</h4>
+              <p class="text-gray-600 text-sm mt-1">Trato directo con los dueños. Sin intermediarios burocráticos ni letras chicas. Te escuchamos y nos adaptamos a ti.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl">
+              <i class="fa-solid fa-ruler-combined"></i>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-gray-800">Expertiz Técnica y Topográfica</h4>
+              <p class="text-gray-600 text-sm mt-1">No solo vendemos terrenos, los entendemos. Ofrecemos asesoría técnica en subdivisión y factibilidad real.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl">
+              <i class="fa-solid fa-file-contract"></i>
+            </div>
+            <div>
+              <h4 class="text-xl font-bold text-gray-800">Gestión Transparente</h4>
+              <p class="text-gray-600 text-sm mt-1">Te mantenemos informado en cada etapa del proceso legal y comercial. Tu tranquilidad es nuestra prioridad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute -top-4 -left-4 w-24 h-24 bg-orange-600 rounded-tl-3xl z-0"></div>
+        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-orange-600 rounded-br-3xl z-0"></div>
+        <img 
+          src="./assets/img/FOTO_QUIENES_SOMOS.jpg" 
+          alt="Equipo profesional de Arriagada Consultores en reunión" 
+          class="relative z-10 w-full h-[500px] object-cover rounded-lg shadow-xl"
+        >
+        <div class="absolute bottom-8 right-[-20px] md:right-8 z-20 bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-600 max-w-xs hidden md:block">
+          <p class="text-gray-800 font-bold text-lg">Compromiso Total</p>
+          <p class="text-gray-500 text-sm">Acompañamiento de principio a fin en tu proyecto.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="w-full bg-gray-50 py-40" id="contacto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 relative">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+
+      <div 
+        class="relative min-h-[400px] lg:h-full w-full bg-cover bg-center p-8 md:p-12 flex flex-col justify-between"
+        style="background-image: url(./assets/img/FOTO-CONTACTO.jpg);"
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30"></div>
+        <div class="relative z-10">
+          <h2 class="text-5xl md:text-5xl font-bold text-white mt-4">Contáctanos</h2>
+          <p class="text-gray-200 text-lg max-w-md mt-2">Estamos listos para tu próximo proyecto.</p>
+        </div>
+        <div class="relative z-10 space-y-4">
+          <div class="flex items-center gap-3 group">
+            <i class="fa-solid fa-phone text-orange-500 text-lg"></i>
+            <span class="text-lg text-white font-medium group-hover:text-orange-400 transition-colors">+56 9 9583 8619</span>
+          </div>
+          <div class="flex items-center gap-3 group">
+            <i class="fa-solid fa-envelope text-orange-500 text-lg"></i>
+            <span class="text-lg text-white font-medium group-hover:text-orange-400 transition-colors">info@arriagadaconsultores.cl</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 md:p-12">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Envíanos un mensaje</h3>
+        
+        <form id="contactForm" action="enviar.php" method="POST" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="nombre" class="text-sm font-medium text-gray-700">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all" required>
+            </div>
+            <div class="space-y-2">
+              <label for="telefono" class="text-sm font-medium text-gray-700">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+56 9..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all">
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label for="email" class="text-sm font-medium text-gray-700">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all" required>
+          </div>
+          <div class="space-y-2">
+            <label for="asunto" class="text-sm font-medium text-gray-700">¿En qué podemos ayudarte?</label>
+            <select id="asunto" name="asunto" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all appearance-none">
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="Compra Propiedad">Quiero comprar una propiedad</option>
+              <option value="Venta Propiedad">Quiero vender mi propiedad</option>
+              <option value="Topografia">Servicios de Topografía/Subdivisión</option>
+              <option value="Legal">Asesoría Legal/Estudio de Títulos</option>
+              <option value="Otro">Otro motivo</option>
+            </select>
+          </div>
+          <div class="space-y-2">
+            <label for="mensaje" class="text-sm font-medium text-gray-700">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos más detalles sobre tu consulta..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none" required></textarea>
+          </div>
+          <button type="submit" class="w-full bg-orange-600 text-white font-bold py-4 rounded-xl hover:bg-orange-700 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+            <span>Enviar Mensaje</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+      <div class="bg-white rounded-3xl p-8 max-w-sm mx-4 text-center shadow-2xl transform scale-95 transition-transform duration-300">
+        <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h4 class="text-2xl font-bold text-gray-900 mb-2">¡Mensaje Enviado!</h4>
+        <p class="text-gray-600 mb-6">Gracias por escribirnos. Te responderemos a la brevedad posible.</p>
+        <button id="closeModalBtn" class="bg-gray-900 text-white px-6 py-2 rounded-full font-bold hover:bg-gray-800 transition-colors">
+          Cerrar
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./src/main.js" defer></script>
+
+<div id="footer-placeholder"></div>
+
+<div id="whatsapp-widget">
+    <div id="chat-window">
+        <div class="chat-header">
+             <i class="fa-brands fa-whatsapp"></i>
+             <div>
+                 <p class="brand-name">Arriagada Consultores</p>
+                 <p class="response-time">Responde en menos de 1 hora</p>
+             </div>
+        </div>
+        <div class="chat-body">
+            <div class="chat-message">
+                <p>Hola 👋<br>¿En qué podemos ayudarte con tu parcela hoy?</p>
+                <span class="message-time">Ahora</span>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20más%20información%20sobre%20las%20parcelas." target="_blank" class="whatsapp-link">
+                <i class="fa-brands fa-whatsapp"></i> Abrir Chat
+            </a>
+        </div>
+    </div>
+
+    <div id="whatsapp-button" onclick="toggleChat()">
+        <div class="notification-badge">1</div>
+        <div class="circle-button">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleChat() {
+        var chat = document.getElementById('chat-window');
+        // Prevenir comportamiento extraño de scroll
+        if (!chat.style.display || chat.style.display === 'none') {
+            chat.style.display = 'block';
+        } else {
+            chat.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>

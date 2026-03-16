@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Arriagada Consultores</title>
+  
+  <link href="./src/output.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body class="bg-gray-50 font-poppins flex flex-col min-h-screen">
+
+  <div id="navbar-placeholder"></div>
+
+  <header class="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center bg-cover bg-center bg-fixed" 
+          style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');">
+    
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto pt-20">
+      <span class="text-orange-500 font-bold tracking-wider uppercase text-sm bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/20">
+        Noticias y Recursos
+      </span>
+      <h1 class="text-4xl md:text-6xl font-bold text-white mt-6 mb-6 drop-shadow-lg">
+        Nuestro <span class="text-orange-500">Blog</span>
+      </h1>
+      <p class="text-lg text-gray-200 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+        Información técnica, legal y noticias sobre el mercado inmobiliario en Ñuble.
+      </p>
+    </div>
+  </header>
+
+  <section class="py-24 w-full bg-white flex-grow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20">
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-container">
+        <button data-filter="all" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-sm">Todos</button>
+        <button data-filter="institucional" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-sm">Institucional</button>
+        <button data-filter="tecnico" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-sm">Guía Técnica</button>
+        <button data-filter="legal" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-sm">Legal</button>
+        <button data-filter="topografia" class="filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-sm">Topografía</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 min-h-[500px]">
+        
+        <article data-category="institucional" class="blog-item bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col h-full hover:-translate-y-2">
+          <div class="relative h-60 overflow-hidden">
+             <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+             <div class="absolute top-4 left-4 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Institucional</div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+             <div class="text-sm text-gray-400 mb-3"><i class="far fa-calendar-alt mr-2"></i> 20 Nov, 2025</div>
+             <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors"><a href="#">Historia de Arriagada Consultores</a></h3>
+             <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">Por qué un topógrafo y un gestor inmobiliario unieron fuerzas en Ñuble.</p>
+             <a href="#" class="inline-flex items-center text-orange-600 font-bold hover:text-orange-700 mt-auto">Leer más <i class="fas fa-arrow-right ml-2"></i></a>
+          </div>
+        </article>
+
+        <article data-category="tecnico" class="blog-item bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col h-full hover:-translate-y-2">
+          <div class="relative h-60 overflow-hidden">
+             <img src="https://images.unsplash.com/photo-1594499468121-f45e83812050?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+             <div class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Guía Técnica</div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+             <div class="text-sm text-gray-400 mb-3"><i class="far fa-calendar-alt mr-2"></i> 18 Nov, 2025</div>
+             <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors"><a href="#">¿Pozo profundo, puntera o APR?</a></h3>
+             <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">Lo que debes saber antes de comprar. Diferencias de factibilidad según zona geográfica.</p>
+             <a href="#" class="inline-flex items-center text-orange-600 font-bold hover:text-orange-700 mt-auto">Leer más <i class="fas fa-arrow-right ml-2"></i></a>
+          </div>
+        </article>
+
+        <article data-category="legal" class="blog-item bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col h-full hover:-translate-y-2">
+          <div class="relative h-60 overflow-hidden">
+             <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+             <div class="absolute top-4 left-4 bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Legal</div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+             <div class="text-sm text-gray-400 mb-3"><i class="far fa-calendar-alt mr-2"></i> 15 Nov, 2025</div>
+             <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors"><a href="#">Cuidado con la "Cesión de Derechos"</a></h3>
+             <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">Por qué preferimos propiedades con Rol Propio y cuáles son los riesgos reales.</p>
+             <a href="#" class="inline-flex items-center text-orange-600 font-bold hover:text-orange-700 mt-auto">Leer más <i class="fas fa-arrow-right ml-2"></i></a>
+          </div>
+        </article>
+
+        <article data-category="topografia" class="blog-item bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col h-full hover:-translate-y-2">
+          <div class="relative h-60 overflow-hidden">
+             <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+             <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Topografía</div>
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+             <div class="text-sm text-gray-400 mb-3"><i class="far fa-calendar-alt mr-2"></i> 10 Nov, 2025</div>
+             <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors"><a href="#">¿Estás seguro de dónde termina tu cerco?</a></h3>
+             <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">La importancia de medir con estación total o GPS antes de cerrar tu perímetro.</p>
+             <a href="#" class="inline-flex items-center text-orange-600 font-bold hover:text-orange-700 mt-auto">Leer más <i class="fas fa-arrow-right ml-2"></i></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="./src/main.js" defer></script>
+</body>
+</html>
