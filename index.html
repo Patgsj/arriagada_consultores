@@ -712,18 +712,21 @@
         </div>
         <div class="chat-body">
             <div class="chat-message">
-                <p>Hola 👋<br>¿En qué podemos ayudarte con tu parcela hoy?</p>
+                <p>Hola 👋<br>¿En qué podemos ayudarte con tu asesoría profesional hoy?</p>
                 <span class="message-time">Ahora</span>
             </div>
         </div>
         <div class="chat-footer">
-            <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20más%20información%20sobre%20las%20parcelas." target="_blank" class="whatsapp-link">
+            <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20recibir%20asesoría%20profesional%20de%20Arriagada%20Consultores.%20¿Podrían%20ayudarme?" 
+               target="_blank" 
+               class="whatsapp-link" 
+               onclick="closeChat()">
                 <i class="fa-brands fa-whatsapp"></i> Abrir Chat
             </a>
         </div>
     </div>
 
-    <div id="whatsapp-button" onclick="toggleChat()">
+    <div id="whatsapp-button" onclick="toggleChat(event)">
         <div class="notification-badge">1</div>
         <div class="circle-button">
             <i class="fa-brands fa-whatsapp"></i>
@@ -732,15 +735,37 @@
 </div>
 
 <script>
-    function toggleChat() {
+    // 1. Función para abrir/cerrar el chat desde el botón verde
+    function toggleChat(event) {
+        if(event) event.stopPropagation(); // Evita que el clic cierre el chat de inmediato
         var chat = document.getElementById('chat-window');
-        // Prevenir comportamiento extraño de scroll
-        if (!chat.style.display || chat.style.display === 'none') {
+        
+        if (chat.style.display === 'none' || chat.style.display === '') {
             chat.style.display = 'block';
         } else {
             chat.style.display = 'none';
         }
     }
+
+    // 2. Función para cerrar el chat al irse a WhatsApp
+    function closeChat() {
+        var chat = document.getElementById('chat-window');
+        chat.style.display = 'none';
+    }
+
+    // 3. Lógica para cerrar el chat al pinchar en cualquier parte de la pantalla
+    document.addEventListener('click', function(event) {
+        var chat = document.getElementById('chat-window');
+        var button = document.getElementById('whatsapp-button');
+
+        // Solo si el chat está abierto
+        if (chat.style.display === 'block') {
+            // Si el clic NO es dentro del chat Y tampoco es el botón verde, se cierra
+            if (!chat.contains(event.target) && !button.contains(event.target)) {
+                chat.style.display = 'none';
+            }
+        }
+    });
 </script>
 
 </body>
