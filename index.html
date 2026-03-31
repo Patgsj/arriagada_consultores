@@ -284,7 +284,7 @@
 
 <div id="navbar-placeholder"></div>
 
-<div id="inicio" class="swiper-container mySwiper w-full h-screen relative" style="--swiper-navigation-color: #fff;">
+<div id="inicio" class="swiper mySwiper w-full h-screen relative" style="--swiper-navigation-color: #fff;">
   <div class="swiper-wrapper">
     
     <div class="swiper-slide relative overflow-hidden">
@@ -720,7 +720,7 @@
         </div>
         <h4 class="text-2xl font-bold text-gray-900 mb-2">¡Mensaje Enviado!</h4>
         <p class="text-gray-600 mb-6">Gracias por escribirnos. Te responderemos a la brevedad posible.</p>
-        <button id="closeModalBtn" class="bg-gray-900 text-white px-6 py-2 rounded-full font-bold hover:bg-gray-800 transition-colors">
+        <button type="button" id="closeModalBtn" class="bg-gray-900 text-white px-6 py-2 rounded-full font-bold hover:bg-gray-800 transition-colors">
           Cerrar
         </button>
       </div>
@@ -750,56 +750,23 @@
             </div>
         </div>
         <div class="chat-footer">
-            <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20recibir%20asesoría%20profesional%20de%20Arriagada%20Consultores.%20¿Podrían%20ayudarme?" 
-               target="_blank" 
-               class="whatsapp-link" 
-               onclick="closeChat()">
+            <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20recibir%20asesoría%20profesional%20de%20Arriagada%20Consultores.%20¿Podrían%20ayudarme?"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="whatsapp-link"
+               id="whatsapp-widget-open-link">
                 <i class="fa-brands fa-whatsapp"></i> Abrir Chat
             </a>
         </div>
     </div>
 
-    <div id="whatsapp-button" onclick="toggleChat(event)">
+    <div id="whatsapp-button" role="button" tabindex="0" aria-label="Abrir chat de WhatsApp">
         <div class="notification-badge">1</div>
         <div class="circle-button">
             <i class="fa-brands fa-whatsapp"></i>
         </div>
     </div>
 </div>
-
-<script>
-    // 1. Función para abrir/cerrar el chat desde el botón verde
-    function toggleChat(event) {
-        if(event) event.stopPropagation(); // Evita que el clic cierre el chat de inmediato
-        var chat = document.getElementById('chat-window');
-        
-        if (chat.style.display === 'none' || chat.style.display === '') {
-            chat.style.display = 'block';
-        } else {
-            chat.style.display = 'none';
-        }
-    }
-
-    // 2. Función para cerrar el chat al irse a WhatsApp
-    function closeChat() {
-        var chat = document.getElementById('chat-window');
-        chat.style.display = 'none';
-    }
-
-    // 3. Lógica para cerrar el chat al pinchar en cualquier parte de la pantalla
-    document.addEventListener('click', function(event) {
-        var chat = document.getElementById('chat-window');
-        var button = document.getElementById('whatsapp-button');
-
-        // Solo si el chat está abierto
-        if (chat.style.display === 'block') {
-            // Si el clic NO es dentro del chat Y tampoco es el botón verde, se cierra
-            if (!chat.contains(event.target) && !button.contains(event.target)) {
-                chat.style.display = 'none';
-            }
-        }
-    });
-</script>
 
 </body>
 </html>

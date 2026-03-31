@@ -319,17 +319,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if(closeSidebarModalBtn) closeSidebarModalBtn.addEventListener('click', hideSidebarModal);
   }
 
-  // --- Lógica del Widget de WhatsApp ---
-function toggleChat() {
-    var chat = document.getElementById('chat-window');
-    
-    // Si la ventana no tiene estilo display o es 'none', la mostramos
-    if (!chat.style.display || chat.style.display === 'none') {
-        chat.style.display = 'block';
-    } else {
-        // Si ya está visible, la ocultamos
-        chat.style.display = 'none';
+  // --- Widget WhatsApp (index y páginas que incluyan el bloque) ---
+  const waButton = document.getElementById('whatsapp-button');
+  const waChat = document.getElementById('chat-window');
+  const waOpenLink = document.getElementById('whatsapp-widget-open-link');
+  if (waButton && waChat) {
+    const setChatOpen = (open) => {
+      waChat.style.display = open ? 'block' : 'none';
+    };
+    waButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = waChat.style.display === 'block';
+      setChatOpen(!isOpen);
+    });
+    waButton.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      waButton.click();
+    });
+    document.addEventListener('click', (event) => {
+      if (waChat.style.display !== 'block') return;
+      if (!waChat.contains(event.target) && !waButton.contains(event.target)) {
+        setChatOpen(false);
+      }
+    });
+    if (waOpenLink) {
+      waOpenLink.addEventListener('click', () => setChatOpen(false));
     }
-}
+  }
 
 });
