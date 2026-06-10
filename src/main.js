@@ -1,3 +1,13 @@
+// Pre-inyectar navbar desde caché antes de DOMContentLoaded.
+// main.js se ejecuta con defer (DOM ya parseado), así que el placeholder ya existe.
+(function () {
+  var cached = sessionStorage.getItem('__comp_navbar.html');
+  if (cached) {
+    var el = document.getElementById('navbar-placeholder');
+    if (el) el.innerHTML = cached;
+  }
+}());
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
@@ -11,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cached = sessionStorage.getItem(cacheKey);
 
     function inject(html) {
-      element.innerHTML = html;
+      // No re-inyectar si el IIFE ya lo hizo (evita parpadeo y doble animación)
+      if (!element.innerHTML.trim()) element.innerHTML = html;
       if (elementId === 'navbar-placeholder') {
         initMobileMenu();
         initScrollNav();
@@ -19,15 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Visitas posteriores: inyectar desde caché al instante
     if (cached) inject(cached);
 
-    // Siempre obtener desde red para mantener caché fresco
     fetch(url)
       .then(r => { if (!r.ok) throw new Error('Error al cargar ' + url); return r.text(); })
       .then(data => {
         sessionStorage.setItem(cacheKey, data);
-        if (!cached) inject(data); // Primera visita: inyectar desde red
+        if (!cached) inject(data);
       })
       .catch(err => console.error('Error cargando componente:', err));
   }
