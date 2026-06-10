@@ -4,24 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. CARGA DE COMPONENTES (Navbar y Footer)
   // ==========================================
   function loadComponent(url, elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const cacheKey = '__comp_' + url;
+    const cached = sessionStorage.getItem(cacheKey);
+
+    function inject(html) {
+      element.innerHTML = html;
+      if (elementId === 'navbar-placeholder') {
+        initMobileMenu();
+        initScrollNav();
+        setTimeout(initActiveLinks, 500);
+      }
+    }
+
+    // Visitas posteriores: inyectar desde caché al instante
+    if (cached) inject(cached);
+
+    // Siempre obtener desde red para mantener caché fresco
     fetch(url)
-      .then(response => {
-        if (!response.ok) throw new Error('Error al cargar ' + url);
-        return response.text();
-      })
+      .then(r => { if (!r.ok) throw new Error('Error al cargar ' + url); return r.text(); })
       .then(data => {
-        const element = document.getElementById(elementId);
-        if (element) {
-          element.innerHTML = data;
-          if (elementId === 'navbar-placeholder') {
-            initMobileMenu();
-            initScrollNav();
-            // Esperamos un poco para iniciar el ScrollSpy para asegurar que todo cargó
-            setTimeout(initActiveLinks, 500); 
-          }
-        }
+        sessionStorage.setItem(cacheKey, data);
+        if (!cached) inject(data); // Primera visita: inyectar desde red
       })
-      .catch(error => console.error('Error cargando componente:', error));
+      .catch(err => console.error('Error cargando componente:', err));
   }
 
   loadComponent('navbar.html', 'navbar-placeholder');
