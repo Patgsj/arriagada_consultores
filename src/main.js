@@ -143,11 +143,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // Se mantiene igual, son librerías optimizadas
   if (document.querySelector('.mySwiper')) {
+    function animateHeroSlide(swiper) {
+      const content = swiper.slides[swiper.activeIndex]?.querySelector('.relative.z-10');
+      if (!content) return;
+      content.classList.remove('hero-slide-anim');
+      void content.offsetWidth; // forzar reflow para reiniciar animación
+      content.classList.add('hero-slide-anim');
+    }
+
     var heroSwiper = new Swiper(".mySwiper", {
       effect: "fade", loop: true,
       pagination: { el: ".swiper-pagination", clickable: true },
       navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
       autoplay: { delay: 6000, disableOnInteraction: false },
+      on: {
+        init: function() { animateHeroSlide(this); },
+        slideChangeTransitionStart: function() { animateHeroSlide(this); }
+      }
     });
   }
 
@@ -347,5 +359,55 @@ document.addEventListener('DOMContentLoaded', () => {
       waOpenLink.addEventListener('click', () => setChatOpen(false));
     }
   }
+
+  // ==========================================
+  // 8. ANIMACIONES DE SCROLL (Reveal)
+  // ==========================================
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const seen = new WeakSet();
+
+    function tag(el, ms) {
+      if (!el || seen.has(el) || el.closest('.swiper-wrapper, .swiper-slide')) return;
+      seen.add(el);
+      el.classList.add('sr');
+      if (ms) el.style.transitionDelay = ms + 'ms';
+    }
+
+    // Bloques de encabezado de sección (título + subtítulo)
+    document.querySelectorAll('section .text-center').forEach(el => {
+      if (!el.closest('.swiper')) tag(el);
+    });
+
+    // Items de grillas con efecto escalonado
+    document.querySelectorAll('section .grid').forEach(grid => {
+      if (!grid.closest('.swiper'))
+        [...grid.children].forEach((c, i) => tag(c, i * 110));
+    });
+
+    // Cards (article) fuera de swipers y grillas
+    document.querySelectorAll('section article').forEach(el => {
+      if (!el.closest('.swiper, .grid')) tag(el);
+    });
+
+    // Titulares sueltos no incluidos en bloques ya animados
+    document.querySelectorAll('section h2, section h3').forEach(el => {
+      if (!el.closest('.text-center, article, .swiper')) tag(el);
+    });
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('sr-show');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.sr').forEach(el => io.observe(el));
+  }
+
+  initScrollReveal();
 
 });
