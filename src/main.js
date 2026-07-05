@@ -11,6 +11,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
+  // 0. ANTI-SPAM: MARCA DE TIEMPO EN FORMULARIOS
+  // ==========================================
+  document.querySelectorAll('form[action="enviar.php"] input[name="form_ts"]').forEach((input) => {
+    input.value = Date.now();
+  });
+
+  // ==========================================
   // 1. CARGA DE COMPONENTES (Navbar y Footer)
   // ==========================================
   function loadComponent(url, elementId) {

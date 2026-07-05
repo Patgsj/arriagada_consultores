@@ -2,7 +2,18 @@
 header('Content-Type: application/json');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
+    // Anti-spam: campo señuelo (solo bots lo completan) y tiempo mínimo de llenado.
+    // Se responde "success" sin enviar el correo para no delatar la detección al bot.
+    $honeypot = trim($_POST["website"] ?? "");
+    $formTs = (int) ($_POST["form_ts"] ?? 0);
+    $segundosTranscurridos = time() - intdiv($formTs, 1000);
+
+    if (!empty($honeypot) || $formTs <= 0 || $segundosTranscurridos < 3) {
+        echo json_encode(["status" => "success"]);
+        exit;
+    }
+
     $nombre = strip_tags(trim($_POST["nombre"]));
     $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
     $telefono = strip_tags(trim($_POST["telefono"]));
