@@ -210,8 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.querySelector('.gallerySwiper')) {
      new Swiper(".gallerySwiper", {
-       slidesPerView: 1, spaceBetween: 0, loop: true, effect: "fade",
-       autoplay: { delay: 4000, disableOnInteraction: true },
+       slidesPerView: 1, spaceBetween: 0, rewind: true, effect: "fade",
+       fadeEffect: { crossFade: true },
+       autoplay: { delay: 4000, disableOnInteraction: false },
        pagination: { el: ".swiper-pagination", clickable: true },
        navigation: { nextEl: ".custom-next", prevEl: ".custom-prev" },
      });
