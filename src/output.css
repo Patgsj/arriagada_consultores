@@ -525,9 +525,6 @@
   .h-\[70vh\] {
     height: 70vh;
   }
-  .h-\[82dvh\] {
-    height: 82dvh;
-  }
   .h-\[200px\] {
     height: 200px;
   }
@@ -539,6 +536,9 @@
   }
   .h-\[500px\] {
     height: 500px;
+  }
+  .h-dvh {
+    height: 100dvh;
   }
   .h-full {
     height: 100%;
