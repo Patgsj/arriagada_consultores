@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initMobileMenu();
         initScrollNav();
         initHashScroll();
+        updateNavHeightVar();
+        window.addEventListener('resize', updateNavHeightVar, { passive: true });
         setTimeout(initActiveLinks, 500);
       }
     }
@@ -102,16 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // aterrizaje: sin esto, el salto nativo del navegador deja la sección
   // tapada bajo el nav fijo, o no calza exacto si el layout aún se está
   // acomodando (imágenes/fuentes cargando).
+  function updateNavHeightVar() {
+    const nav = document.getElementById('main-nav');
+    if (nav) document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+  }
+
   function scrollToHash(hash, smooth) {
     const id = (hash || '').replace('#', '');
     const target = id && document.getElementById(id);
     if (!target) return false;
 
-    const nav = document.getElementById('main-nav');
-    const offset = (nav ? nav.offsetHeight : 0) + 40;
-    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-
-    window.scrollTo({ top: Math.max(top, 0), behavior: smooth ? 'smooth' : 'auto' });
+    updateNavHeightVar();
+    target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
     return true;
   }
 

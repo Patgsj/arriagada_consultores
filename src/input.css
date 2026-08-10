@@ -60,6 +60,14 @@
 
 html {
   scroll-behavior: smooth;
+  --nav-h: 88px; /* fallback antes de que main.js mida el alto real del nav */
+}
+
+/* Deja exactamente el alto del nav fijo como margen al saltar a una sección,
+   para que no quede tapada ni se asome la sección anterior por debajo del nav. */
+#inicio,
+section[id] {
+  scroll-margin-top: var(--nav-h);
 }
 
 #main-nav.scrolled {
