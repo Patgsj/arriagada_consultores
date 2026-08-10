@@ -40,7 +40,7 @@
   <link rel="preload" as="image" href="./assets/img/HERO-0.jpg">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="./src/output.css" rel="stylesheet">
 
@@ -56,20 +56,38 @@
     }
 
     /* --- WIDGET WHATSAPP BLINDADO --- */
+    /* Alineado al mismo contenedor que el navbar (max-w-7xl + px-4/10/20)
+       para que el botón quede a la misma distancia del borde que el logo/menú. */
     #whatsapp-widget {
         position: fixed; /* SIEMPRE PEGADO A LA PANTALLA */
-        bottom: 25px;
-        right: 25px;
+        bottom: 90px; /* despegado del footer para no tapar el crédito "Diseñado por" */
+        left: 0;
+        right: 0;
         z-index: 2147483647; /* ENCIMA DE TODO (Valor máximo) */
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Public Sans', sans-serif;
         -webkit-tap-highlight-color: transparent; /* Quita el parpadeo azul al tocar en celular */
+        pointer-events: none;
+    }
+    #whatsapp-widget > .wa-inner {
+        max-width: 80rem; /* == max-w-7xl */
+        margin: 0 auto;
+        padding-right: 1rem; /* == px-4 */
+        display: flex;
+        justify-content: flex-end;
+    }
+    #whatsapp-widget .wa-inner > * { pointer-events: auto; }
+
+    @media (min-width: 640px) {
+        #whatsapp-widget > .wa-inner { padding-right: 2.5rem; } /* == sm:px-10 */
+    }
+    @media (min-width: 1024px) {
+        #whatsapp-widget > .wa-inner { padding-right: 5rem; } /* == lg:px-20 */
     }
 
     /* Ajuste para que no moleste en celulares pequeños */
     @media (max-width: 768px) {
         #whatsapp-widget {
-            bottom: 20px; 
-            right: 15px;
+            bottom: 80px;
         }
     }
 
@@ -84,7 +102,7 @@
         right: 0;
         overflow: hidden;
         transform-origin: bottom right;
-        animation: scaleIn 0.2s ease-out;
+        animation: scaleIn 0.35s ease-out;
     }
 
     .chat-header {
@@ -159,7 +177,7 @@
     #whatsapp-button {
         cursor: pointer;
         position: relative;
-        transition: transform 0.2s;
+        transition: transform 0.4s ease-out;
     }
     #whatsapp-button:hover { transform: scale(1.05); }
 
@@ -291,29 +309,27 @@
 <div id="navbar-placeholder"></div>
 
 <h1 class="sr-only">Arriagada Consultores — Corretaje de Propiedades, Subdivisión de Terrenos y Topografía en Ñuble y Valparaíso</h1>
-<div id="inicio" class="swiper mySwiper w-full h-screen relative" style="--swiper-navigation-color: #fff;">
+<div id="inicio" class="swiper mySwiper w-full h-dvh relative bg-gray-900" style="--swiper-navigation-color: #fff;">
   <div class="swiper-wrapper">
-    
+
     <div class="swiper-slide relative overflow-hidden">
       <div
-        class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105"
+        class="hero-bg absolute inset-x-0 -top-[10%] h-[115%] bg-cover bg-center transition-transform duration-10000 hover:scale-105"
         style="background-image: url(./assets/img/HERO-0.jpg)"
         role="img" aria-label="Parcelación Las Pilcas en San Fabián de Alico"
       ></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent"></div>
-      
-      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex flex-col justify-center items-center md:items-start text-center md:text-left">
-        <span class="text-white font-bold tracking-[0.2em] uppercase text-sm mb-4 animate-fade-in-up">
-            San Fabián de Alico
-        </span>
-        <h2 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
-          Parcelación <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Las Pilcas</span>
-        </h2>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed drop-shadow-md max-w-[85%] md:max-w-2xl mx-auto md:mx-0">
-          Tu proyecto de vida en la precordillera. 5.000 m² con Rol Propio, <strong>Agua Potable</strong> y Luz Soterrada.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="parcelacion-las-pilcas" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg hover:-translate-y-1">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/30 md:to-transparent"></div>
+
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex items-end md:items-center">
+        <div class="max-w-2xl w-full sm:w-auto mb-14 md:mb-0 pl-5 border-l-2 border-orange-500">
+          <span class="coord-tag block text-white/90 text-xs mb-4 drop-shadow-md">SAN FABIÁN DE ALICO</span>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-5 drop-shadow-lg">
+            Parcelación <span class="text-white">Las Pilcas</span>
+          </h2>
+          <p class="text-base md:text-lg text-white/90 mb-8 leading-relaxed drop-shadow-md max-w-lg">
+            Tu proyecto de vida en la precordillera. 5.000 m² con Rol Propio, <strong class="text-white font-semibold">Agua Potable</strong> y Luz Soterrada.
+          </p>
+          <a href="parcelacion-las-pilcas" class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold uppercase tracking-wide rounded-lg text-white bg-orange-600 hover:bg-orange-700 transition-colors duration-500">
             Ver Proyecto
             <i class="fa-solid fa-arrow-right ml-2"></i>
           </a>
@@ -323,22 +339,22 @@
 
     <div class="swiper-slide relative overflow-hidden">
       <div
-        class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105"
+        class="hero-bg absolute inset-x-0 -top-[10%] h-[115%] bg-cover bg-center transition-transform duration-10000 hover:scale-105"
         style="background-image: url(./assets/img/HERO2.webp)"
         role="img" aria-label="Reunión de asesoría inmobiliaria personalizada"
       ></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent"></div>
-      
-      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex flex-col justify-center items-center md:items-start text-center md:text-left">
-        <span class="text-white font-bold tracking-[0.2em] uppercase text-sm mb-4">Servicio Integral</span>
-        <h2 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
-          Atención <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Personalizada</span>
-        </h2>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed drop-shadow-md max-w-[85%] md:max-w-2xl mx-auto md:mx-0">
-          Desde la búsqueda hasta la escritura. Nuestro equipo de topógrafos y asesores legales te acompaña con un servicio cercano y transparente.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="./#contacto" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg hover:-translate-y-1">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/30 md:to-transparent"></div>
+
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex items-end md:items-center">
+        <div class="max-w-2xl w-full sm:w-auto mb-14 md:mb-0 pl-5 border-l-2 border-orange-500">
+          <span class="coord-tag block text-white/90 text-xs mb-4 drop-shadow-md">SERVICIO INTEGRAL — ÑUBLE</span>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-5 drop-shadow-lg">
+            Atención <span class="text-white">Personalizada</span>
+          </h2>
+          <p class="text-base md:text-lg text-white/90 mb-8 leading-relaxed drop-shadow-md max-w-lg">
+            Desde la búsqueda hasta la escritura. Nuestro equipo de topógrafos y asesores legales te acompaña con un servicio cercano y transparente.
+          </p>
+          <a href="./#contacto" class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold uppercase tracking-wide rounded-lg text-white bg-orange-600 hover:bg-orange-700 transition-colors duration-500">
             Agenda una Consulta
             <i class="fa-solid fa-calendar-check ml-2"></i>
           </a>
@@ -348,22 +364,22 @@
 
     <div class="swiper-slide relative overflow-hidden">
       <div
-        class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105"
+        class="hero-bg absolute inset-x-0 -top-[10%] h-[115%] bg-cover bg-center transition-transform duration-10000 hover:scale-105"
         style="background-image: url(./assets/img/HERO1.webp)"
         role="img" aria-label="Paisaje de terreno con alta plusvalía"
       ></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent"></div>
-      
-      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex flex-col justify-center items-center md:items-start text-center md:text-left">
-        <span class="text-white font-bold tracking-[0.2em] uppercase text-sm mb-4">Alta Plusvalía</span>
-        <h2 class="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg">
-          Invierte en <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Tu Futuro</span>
-        </h2>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed drop-shadow-md max-w-[85%] md:max-w-2xl mx-auto md:mx-0">
-          Identificamos terrenos con gran potencial de crecimiento y rentabilidad en las mejores ubicaciones del sur de Chile.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="https://wa.me/56995838619?text=Hola,%20necesito%20más%20información" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg hover:-translate-y-1">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent md:bg-gradient-to-r md:from-black/80 md:via-black/30 md:to-transparent"></div>
+
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 flex items-end md:items-center">
+        <div class="max-w-2xl w-full sm:w-auto mb-14 md:mb-0 pl-5 border-l-2 border-orange-500">
+          <span class="coord-tag block text-white/90 text-xs mb-4 drop-shadow-md">ALTA PLUSVALÍA — SUR DE CHILE</span>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-5 drop-shadow-lg">
+            Invierte en <span class="text-white">Tu Futuro</span>
+          </h2>
+          <p class="text-base md:text-lg text-white/90 mb-8 leading-relaxed drop-shadow-md max-w-lg">
+            Identificamos terrenos con gran potencial de crecimiento y rentabilidad en las mejores ubicaciones del sur de Chile.
+          </p>
+          <a href="https://wa.me/56995838619?text=Hola,%20necesito%20más%20información" target="_blank" class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold uppercase tracking-wide rounded-lg text-white bg-orange-600 hover:bg-orange-700 transition-colors duration-500">
             Contáctanos Ahora
             <i class="fa-solid fa-phone ml-2"></i>
           </a>
@@ -378,11 +394,11 @@
   <div class="swiper-button-prev z-20"></div>
 </div>
 
-<section id="servicios" class="w-full bg-gray-50 py-40">
+<section id="servicios" class="w-full bg-gray-50 py-16 sm:py-24 md:py-40">
   <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20">
 
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm bg-orange-100 px-3 py-1 rounded-full">Lo que hacemos</span>
+      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm rounded-md border border-orange-600 px-3 py-1">Lo que hacemos</span>
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-6">
         Nuestros Servicios <span class="text-orange-600">Inmobiliarios</span>
       </h2>
@@ -392,9 +408,13 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
-        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
-          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/VENTAS.svg" alt="Icono servicio de ventas" loading="lazy" width="36" height="36">
+      <article class="group relative bg-white p-8 flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_16px_32px_rgba(34,31,26,0.10)] hover:-translate-y-1 transition-all duration-500">
+        <div class="absolute top-0 left-0 h-0.5 w-0 bg-orange-600 group-hover:w-full transition-all duration-500"></div>
+        <div class="flex items-center justify-between mb-6">
+          <div class="w-12 h-12 rounded-lg bg-gray-50 border border-gray-200 group-hover:border-orange-600 flex items-center justify-center transition-colors duration-500">
+            <img class="w-5 h-5" src="./assets/img/VENTAS.svg" alt="Icono servicio de ventas" loading="lazy" width="20" height="20">
+          </div>
+          <span class="coord-tag text-[11px] text-gray-400">SRV — VENTAS</span>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Ventas de propiedades</h3>
         <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
@@ -405,9 +425,13 @@
         </a>
       </article>
 
-      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
-        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
-          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/PARCELACION.svg" alt="Icono servicio de medición" loading="lazy" width="36" height="36">
+      <article class="group relative bg-white p-8 flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_16px_32px_rgba(34,31,26,0.10)] hover:-translate-y-1 transition-all duration-500">
+        <div class="absolute top-0 left-0 h-0.5 w-0 bg-orange-600 group-hover:w-full transition-all duration-500"></div>
+        <div class="flex items-center justify-between mb-6">
+          <div class="w-12 h-12 rounded-lg bg-gray-50 border border-gray-200 group-hover:border-orange-600 flex items-center justify-center transition-colors duration-500">
+            <img class="w-5 h-5" src="./assets/img/PARCELACION.svg" alt="Icono servicio de medición" loading="lazy" width="20" height="20">
+          </div>
+          <span class="coord-tag text-[11px] text-gray-400">SRV — MEDICIÓN</span>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Medición de terrenos</h3>
         <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
@@ -418,9 +442,13 @@
         </a>
       </article>
 
-      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
-        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
-          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/TITULO.svg" alt="Icono servicio estudio de títulos" loading="lazy" width="36" height="36">
+      <article class="group relative bg-white p-8 flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_16px_32px_rgba(34,31,26,0.10)] hover:-translate-y-1 transition-all duration-500">
+        <div class="absolute top-0 left-0 h-0.5 w-0 bg-orange-600 group-hover:w-full transition-all duration-500"></div>
+        <div class="flex items-center justify-between mb-6">
+          <div class="w-12 h-12 rounded-lg bg-gray-50 border border-gray-200 group-hover:border-orange-600 flex items-center justify-center transition-colors duration-500">
+            <img class="w-5 h-5" src="./assets/img/TITULO.svg" alt="Icono servicio estudio de títulos" loading="lazy" width="20" height="20">
+          </div>
+          <span class="coord-tag text-[11px] text-gray-400">SRV — TÍTULOS</span>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Estudios de título</h3>
         <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
@@ -431,9 +459,13 @@
         </a>
       </article>
 
-      <article class="group bg-white rounded-2xl p-8 flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition-all duration-300 hover:-translate-y-1">
-        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300 transform group-hover:scale-110">
-          <img class="w-9 h-9 group-hover:brightness-0 group-hover:invert transition-all duration-300" src="./assets/img/LEGAL.svg" alt="Icono servicio asesoría legal" loading="lazy" width="36" height="36">
+      <article class="group relative bg-white p-8 flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_16px_32px_rgba(34,31,26,0.10)] hover:-translate-y-1 transition-all duration-500">
+        <div class="absolute top-0 left-0 h-0.5 w-0 bg-orange-600 group-hover:w-full transition-all duration-500"></div>
+        <div class="flex items-center justify-between mb-6">
+          <div class="w-12 h-12 rounded-lg bg-gray-50 border border-gray-200 group-hover:border-orange-600 flex items-center justify-center transition-colors duration-500">
+            <img class="w-5 h-5" src="./assets/img/LEGAL.svg" alt="Icono servicio asesoría legal" loading="lazy" width="20" height="20">
+          </div>
+          <span class="coord-tag text-[11px] text-gray-400">SRV — LEGAL</span>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">Asesoría legal</h3>
         <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">
@@ -448,11 +480,11 @@
   </div>
 </section>
 
-<section id="propiedades" class="w-full bg-white py-24 relative">
+<section id="propiedades" class="w-full bg-white py-16 sm:py-24 relative">
   <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 relative">
     
     <div class="text-center mb-12">
-      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm bg-orange-50 px-3 py-1 rounded-full">Oportunidades Únicas</span>
+      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm rounded-md border border-orange-600 px-3 py-1">Oportunidades Únicas</span>
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-6">
         Propiedades <span class="text-orange-600">Destacadas</span>
       </h2>
@@ -464,13 +496,13 @@
     <div class="swiper propertiesSwiper w-full !pt-10 !pb-24 px-4 relative">
       <div class="swiper-wrapper">
 
-        <div class="swiper-slide h-auto">
-          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border border-gray-100">
-            <a href="casa_Rosario" class="relative block h-64 overflow-hidden">
+        <div class="swiper-slide">
+          <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+            <a href="casa_Rosario" class="relative block h-64 overflow-hidden rounded-t-xl">
               <img class="w-full h-full object-cover transform group-hover:scale-110 group-hover:grayscale transition-all duration-500" src="./assets/img_cards_propiedades/casa_vecino.jpg" alt="Venta de Casa Parcela en San Carlos, Ñuble" loading="lazy" width="640" height="256">
-              <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Disponible</span>
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
-                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wide z-10">Disponible</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-lg uppercase tracking-wide text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Ver Detalles</span>
               </div>
             </a>
             <div class="p-5 flex flex-col flex-grow">
@@ -480,26 +512,26 @@
                   <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> San Carlos, Ñuble
                 </p>
               </div>
-              <div class="flex flex-wrap gap-2 mb-4 justify-start">
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bed mr-1 text-orange-500"></i> 5 Hab</span>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bath mr-1 text-orange-500"></i> 3 Baños</span>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-ruler-combined mr-1 text-orange-500"></i> 200 m²</span>
+              <div class="coord-tag flex flex-wrap gap-2 mb-4 justify-start">
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-bed mr-1 text-orange-500"></i> 5 Hab</span>
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-bath mr-1 text-orange-500"></i> 3 Baños</span>
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-ruler-combined mr-1 text-orange-500"></i> 200 m²</span>
               </div>
-              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+              <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
                 <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
-                <span class="text-lg font-bold text-orange-600">$215.000.000</span>
+                <span class="coord-tag text-lg font-bold text-orange-600">$215.000.000</span>
               </div>
             </div>
           </article>
         </div>
 
-        <div class="swiper-slide h-auto">
-          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border border-gray-100">
-            <a href="terreno_las_tunas" class="relative block h-64 overflow-hidden">
+        <div class="swiper-slide">
+          <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+            <a href="terreno_las_tunas" class="relative block h-64 overflow-hidden rounded-t-xl">
               <img class="w-full h-full object-cover transform group-hover:scale-110 group-hover:grayscale transition-all duration-500" src="./assets/img_cards_propiedades/Terreno_sector_Las_Tunas.jpg" alt="Venta de Terreno Agrícola 7,3 ha en Cauquenes, Maule" loading="lazy" width="640" height="256">
-              <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Disponible</span>
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
-                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wide z-10">Disponible</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-lg uppercase tracking-wide text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Ver Detalles</span>
               </div>
             </a>
             <div class="p-5 flex flex-col flex-grow">
@@ -509,26 +541,26 @@
                   <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> Cauquenes, Maule
                 </p>
               </div>
-              <div class="flex flex-wrap gap-2 mb-4 justify-start">
-                  <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
-                  <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
-                  <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
+              <div class="coord-tag flex flex-wrap gap-2 mb-4 justify-start">
+                  <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
+                  <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
+                  <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
               </div>
-              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+              <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
                 <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
-                <span class="text-lg font-bold text-orange-600">$56.000.000</span>
+                <span class="coord-tag text-lg font-bold text-orange-600">$56.000.000</span>
               </div>
             </div>
           </article>
         </div>
 
-        <div class="swiper-slide h-auto">
-          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border border-gray-100">
-            <a href="terrenos_trehuaco" class="relative block h-64 overflow-hidden">
+        <div class="swiper-slide">
+          <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+            <a href="terrenos_trehuaco" class="relative block h-64 overflow-hidden rounded-t-xl">
               <img class="w-full h-full object-cover transform group-hover:scale-110 group-hover:grayscale transition-all duration-500" src="./assets/img_cards_propiedades/Terrrenos_Urbanos_Trehuaco.JPG" alt="Venta de Terrenos Urbanos en Trehuaco, Ñuble" loading="lazy" width="640" height="256">
-              <span class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">Disponible</span>
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20">
-                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wide z-10">Disponible</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                  <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-lg uppercase tracking-wide text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Ver Detalles</span>
               </div>
             </a>
             <div class="p-5 flex flex-col flex-grow">
@@ -538,28 +570,28 @@
                   <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> Trehuaco, Ñuble
                 </p>
               </div>
-              <div class="flex flex-wrap gap-2 mb-4 justify-start">
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-50 text-gray-600 border border-gray-100"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
+              <div class="coord-tag flex flex-wrap gap-2 mb-4 justify-start">
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
               </div>
-              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+              <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
                 <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Consulta</span>
-                <span class="text-lg font-bold text-orange-600 cursor-pointer hover:underline">Ver Valores</span>
+                <span class="coord-tag text-lg font-bold text-orange-600 cursor-pointer hover:underline">Ver Valores</span>
               </div>
             </div>
           </article>
         </div>
 
-        <div class="swiper-slide h-auto">
-          <article class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full border-2 border-transparent hover:border-orange-500/20">
-            <a href="parcelacion-las-pilcas" class="relative block h-64 overflow-hidden">
+        <div class="swiper-slide">
+          <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+            <a href="parcelacion-las-pilcas" class="relative block h-64 overflow-hidden rounded-t-xl">
               <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500  group-hover:grayscale-0" src="./assets/img_cards_propiedades/Las_Pilcas.jpg" alt="Venta de Parcelación Las Pilcas en San Fabián, Ñuble" loading="lazy" width="640" height="256">
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Ver Detalles</span>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <span class="bg-white text-gray-900 font-semibold px-6 py-2 rounded-lg uppercase tracking-wide text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Ver Detalles</span>
               </div>
-              <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-md uppercase tracking-wide">Vendidas 1 y 34</span>
-              <span class="absolute top-4 right-4 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-md">Disponibles</span>
+              <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Vendidas 1 y 34</span>
+              <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Disponibles</span>
             </a>
             <div class="p-5 flex flex-col flex-grow">
               <div class="mb-4">
@@ -568,14 +600,14 @@
                   <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> San Fabián, Ñuble
                 </p>
               </div>
-              <div class="flex flex-wrap gap-2 mb-4 justify-start">
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
+              <div class="coord-tag flex flex-wrap gap-2 mb-4 justify-start">
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-file-contract mr-1 text-orange-500"></i> Rol Propio</span>
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-bolt mr-1 text-orange-500"></i>Fact. Luz</span>
+                <span class="inline-flex items-center px-2 py-1 text-[10px] font-medium text-gray-600 bg-gray-50 border border-gray-200 rounded-md"><i class="fa-solid fa-water mr-1 text-orange-500"></i>Fact. Agua</span>
               </div>
-              <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+              <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
                 <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
-                <span class="text-xl font-bold text-orange-600">$65.000.000</span>
+                <span class="coord-tag text-xl font-bold text-orange-600">$65.000.000</span>
               </div>
             </div>
           </article>
@@ -589,7 +621,7 @@
   </div>
 </section>
 
-<section id="nosotros" class="w-full py-40 bg-gray-50">
+<section id="nosotros" class="w-full py-16 sm:py-24 md:py-40 bg-gray-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       
@@ -634,15 +666,16 @@
       </div>
 
       <div class="relative">
-        <div class="absolute -top-4 -left-4 w-24 h-24 bg-orange-600 rounded-tl-3xl z-0"></div>
-        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-orange-600 rounded-br-3xl z-0"></div>
-        <img 
-          src="./assets/img/FOTO_QUIENES_SOMOS.jpg"
-          alt="Equipo profesional de Arriagada Consultores en reunión"
-          class="relative z-10 w-full h-[500px] object-cover rounded-lg shadow-xl"
-          loading="lazy" width="700" height="500"
-        >
-        <div class="absolute bottom-8 right-[-20px] md:right-8 z-20 bg-white p-6 rounded-lg shadow-lg border-l-4 border-orange-600 max-w-xs hidden md:block">
+        <div class="bg-white p-2 rounded-xl border border-gray-200">
+          <img
+            src="./assets/img/FOTO_QUIENES_SOMOS.jpg"
+            alt="Equipo profesional de Arriagada Consultores en reunión"
+            class="w-full h-[500px] object-cover"
+            loading="lazy" width="700" height="500"
+          >
+          <span class="coord-tag block text-gray-400 text-[11px] px-1 pt-2">EQUIPO — ÑUBLE</span>
+        </div>
+        <div class="absolute bottom-8 right-[-20px] md:right-8 z-20 bg-white p-6 rounded-xl border border-gray-200 border-l-4 border-orange-600 max-w-xs hidden md:block">
           <p class="text-gray-800 font-bold text-lg">Compromiso Total</p>
           <p class="text-gray-500 text-sm">Acompañamiento de principio a fin en tu proyecto.</p>
         </div>
@@ -652,55 +685,61 @@
   </div>
 </section>
 
-<section class="w-full bg-gray-50 py-40" id="contacto">
+<section class="w-full bg-gray-50 py-16 sm:py-24 md:py-40" id="contacto">
   <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 relative">
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+    <div class="grid grid-cols-1 lg:grid-cols-2 bg-white overflow-hidden rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)]">
 
-      <div 
-        class="relative min-h-[400px] lg:h-full w-full bg-cover bg-center p-8 md:p-12 flex flex-col justify-between"
+      <div
+        class="relative min-h-[360px] lg:h-full w-full bg-cover bg-center p-8 md:p-12 flex flex-col justify-between"
         style="background-image: url(./assets/img/FOTO-CONTACTO.jpg);"
       >
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30"></div>
+        
         <div class="relative z-10">
-          <h2 class="text-5xl md:text-5xl font-bold text-white mt-4">Contáctanos</h2>
-          <p class="text-gray-200 text-lg max-w-md mt-2">Estamos listos para tu próximo proyecto.</p>
+          <h3 class="text-4xl md:text-5xl font-bold text-white">Contáctanos</h3>
+          <p class="text-gray-200 text-lg max-w-md mt-3">Estamos listos para tu próximo proyecto.</p>
         </div>
         <div class="relative z-10 space-y-4">
-          <div class="flex items-center gap-3 group">
-            <i class="fa-solid fa-phone text-orange-500 text-lg"></i>
-            <span class="text-lg text-white font-medium group-hover:text-orange-400 transition-colors">+56 9 9583 8619</span>
-          </div>
-          <div class="flex items-center gap-3 group">
-            <i class="fa-solid fa-envelope text-orange-500 text-lg"></i>
-            <span class="text-lg text-white font-medium group-hover:text-orange-400 transition-colors">info@arriagadaconsultores.cl</span>
-          </div>
+          <a href="tel:+56995838619" class="flex items-center gap-3 group w-fit">
+            <div class="w-10 h-10 border border-white/25 group-hover:border-orange-500 flex items-center justify-center transition-colors duration-500 flex-shrink-0">
+              <i class="fa-solid fa-phone text-orange-500 text-sm"></i>
+            </div>
+            <span class="text-base text-white font-medium group-hover:text-orange-400 transition-colors duration-500">+56 9 9583 8619</span>
+          </a>
+          <a href="mailto:info@arriagadaconsultores.cl" class="flex items-center gap-3 group w-fit">
+            <div class="w-10 h-10 border border-white/25 group-hover:border-orange-500 flex items-center justify-center transition-colors duration-500 flex-shrink-0">
+              <i class="fa-solid fa-envelope text-orange-500 text-sm"></i>
+            </div>
+            <span class="text-base text-white font-medium group-hover:text-orange-400 transition-colors duration-500">info@arriagadaconsultores.cl</span>
+          </a>
         </div>
       </div>
 
-      <div class="p-8 md:p-12">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">Envíanos un mensaje</h3>
-        
-        <form id="contactForm" action="enviar.php" method="POST" class="space-y-6">
+      <div class="p-6 md:p-10 bg-white flex flex-col justify-center">
+        <span class="coord-tag block text-gray-400 text-[11px] mb-1">FORMULARIO DE CONTACTO</span>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Envíanos un mensaje</h3>
+
+        <form id="contactForm" action="enviar.php" method="POST" class="space-y-3">
           <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
           <input type="hidden" name="form_ts" value="">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label for="nombre" class="text-sm font-medium text-gray-700">Nombre completo</label>
-              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all" required>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="space-y-1">
+              <label for="nombre" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:bg-white focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)] transition-all duration-300" required>
             </div>
-            <div class="space-y-2">
-              <label for="telefono" class="text-sm font-medium text-gray-700">Teléfono</label>
-              <input type="tel" id="telefono" name="telefono" placeholder="+56 9..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all">
+            <div class="space-y-1">
+              <label for="telefono" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+56 9..." class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:bg-white focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)] transition-all duration-300">
             </div>
           </div>
-          <div class="space-y-2">
-            <label for="email" class="text-sm font-medium text-gray-700">Correo electrónico</label>
-            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all" required>
+          <div class="space-y-1">
+            <label for="email" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:bg-white focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)] transition-all duration-300" required>
           </div>
-          <div class="space-y-2">
-            <label for="asunto" class="text-sm font-medium text-gray-700">¿En qué podemos ayudarte?</label>
-            <select id="asunto" name="asunto" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all appearance-none">
+          <div class="space-y-1">
+            <label for="asunto" class="text-xs font-semibold uppercase tracking-wide text-gray-500">¿En qué podemos ayudarte?</label>
+            <select id="asunto" name="asunto" class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:bg-white focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)] transition-all duration-300 appearance-none">
               <option value="" disabled selected>Selecciona una opción</option>
               <option value="Compra Propiedad">Quiero comprar una propiedad</option>
               <option value="Venta Propiedad">Quiero vender mi propiedad</option>
@@ -709,11 +748,11 @@
               <option value="Otro">Otro motivo</option>
             </select>
           </div>
-          <div class="space-y-2">
-            <label for="mensaje" class="text-sm font-medium text-gray-700">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos más detalles sobre tu consulta..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none" required></textarea>
+          <div class="space-y-1">
+            <label for="mensaje" class="text-xs font-semibold uppercase tracking-wide text-gray-500">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="2" placeholder="Cuéntanos más detalles sobre tu consulta..." class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-orange-600 focus:bg-white focus:shadow-[0_0_0_3px_rgba(234,88,12,0.12)] transition-all duration-300 resize-none" required></textarea>
           </div>
-          <button type="submit" class="w-full bg-orange-600 text-white font-bold py-4 rounded-xl hover:bg-orange-700 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+          <button type="submit" class="w-full bg-orange-600 text-white font-bold text-sm py-3 uppercase tracking-wide hover:bg-orange-700 transition-colors duration-500 flex items-center justify-center gap-2">
             <span>Enviar Mensaje</span>
             <i class="fa-solid fa-paper-plane"></i>
           </button>
@@ -722,14 +761,14 @@
 
     </div>
 
-    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
-      <div class="bg-white rounded-3xl p-8 max-w-sm mx-4 text-center shadow-2xl transform scale-95 transition-transform duration-300">
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-500">
+      <div class="bg-white rounded-xl p-8 max-w-sm mx-4 text-center border border-gray-200 shadow-[0_16px_32px_rgba(34,31,26,0.10)] transform scale-95 transition-transform duration-500">
         <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
           <i class="fa-solid fa-check"></i>
         </div>
         <h4 class="text-2xl font-bold text-gray-900 mb-2">¡Mensaje Enviado!</h4>
         <p class="text-gray-600 mb-6">Gracias por escribirnos. Te responderemos a la brevedad posible.</p>
-        <button type="button" id="closeModalBtn" class="bg-gray-900 text-white px-6 py-2 rounded-full font-bold hover:bg-gray-800 transition-colors">
+        <button type="button" id="closeModalBtn" class="bg-gray-900 text-white px-6 py-2 rounded-lg uppercase tracking-wide text-sm font-bold hover:bg-gray-800 transition-colors duration-500">
           Cerrar
         </button>
       </div>
@@ -738,43 +777,49 @@
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="./src/main.js" defer></script>
 
 <div id="footer-placeholder"></div>
 
 <div id="whatsapp-widget">
-    <div id="chat-window">
-        <div class="chat-header">
-             <i class="fa-brands fa-whatsapp"></i>
-             <div>
-                 <p class="brand-name">Arriagada Consultores</p>
-                 <p class="response-time">Responde en menos de 1 hora</p>
-             </div>
-        </div>
-        <div class="chat-body">
-            <div class="chat-message">
-                <p>Hola 👋<br>¿En qué podemos ayudarte con tu asesoría profesional hoy?</p>
-                <span class="message-time">Ahora</span>
-            </div>
-        </div>
-        <div class="chat-footer">
-            <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20recibir%20asesoría%20profesional%20de%20Arriagada%20Consultores.%20¿Podrían%20ayudarme?"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="whatsapp-link"
-               id="whatsapp-widget-open-link">
-                <i class="fa-brands fa-whatsapp"></i> Abrir Chat
-            </a>
-        </div>
-    </div>
+  <div class="wa-inner">
+    <div class="relative">
+      <div id="chat-window">
+          <div class="chat-header">
+               <i class="fa-brands fa-whatsapp"></i>
+               <div>
+                   <p class="brand-name">Arriagada Consultores</p>
+                   <p class="response-time">Responde en menos de 1 hora</p>
+               </div>
+          </div>
+          <div class="chat-body">
+              <div class="chat-message">
+                  <p>Hola 👋<br>¿En qué podemos ayudarte con tu asesoría profesional hoy?</p>
+                  <span class="message-time">Ahora</span>
+              </div>
+          </div>
+          <div class="chat-footer">
+              <a href="https://wa.me/56995838619?text=Hola,%20me%20gustaría%20recibir%20asesoría%20profesional%20de%20Arriagada%20Consultores.%20¿Podrían%20ayudarme?"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="whatsapp-link"
+                 id="whatsapp-widget-open-link">
+                  <i class="fa-brands fa-whatsapp"></i> Abrir Chat
+              </a>
+          </div>
+      </div>
 
-    <div id="whatsapp-button" role="button" tabindex="0" aria-label="Abrir chat de WhatsApp">
-        <div class="notification-badge">1</div>
-        <div class="circle-button">
-            <i class="fa-brands fa-whatsapp"></i>
-        </div>
+      <div id="whatsapp-button" role="button" tabindex="0" aria-label="Abrir chat de WhatsApp">
+          <div class="notification-badge">1</div>
+          <div class="circle-button">
+              <i class="fa-brands fa-whatsapp"></i>
+          </div>
+      </div>
     </div>
+  </div>
 </div>
 
 </body>

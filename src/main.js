@@ -27,9 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cacheKey = '__comp_' + url;
     const cached = sessionStorage.getItem(cacheKey);
 
-    function inject(html) {
-      // No re-inyectar si el IIFE ya lo hizo (evita parpadeo y doble animación)
-      if (!element.innerHTML.trim()) element.innerHTML = html;
+    function inject(html, force) {
+      // No re-inyectar si el IIFE ya lo hizo (evita parpadeo y doble animación),
+      // salvo que forcemos la actualización porque el HTML cambió respecto al caché.
+      if (force || !element.innerHTML.trim()) element.innerHTML = html;
       if (elementId === 'navbar-placeholder') {
         initMobileMenu();
         initScrollNav();
@@ -42,8 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(url)
       .then(r => { if (!r.ok) throw new Error('Error al cargar ' + url); return r.text(); })
       .then(data => {
+        const changed = data !== cached;
         sessionStorage.setItem(cacheKey, data);
-        if (!cached) inject(data);
+        // Si no había caché, ya se inyectó abajo con force=true.
+        // Si había caché pero el contenido cambió (el archivo se actualizó), reemplazamos.
+        if (!cached || changed) inject(data, true);
       })
       .catch(err => console.error('Error cargando componente:', err));
   }
@@ -167,8 +171,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // Se mantiene igual, son librerías optimizadas
   if (document.querySelector('.mySwiper')) {
+    var heroGsapReady = typeof gsap !== 'undefined';
+
     function animateHeroSlide(swiper) {
-      const content = swiper.slides[swiper.activeIndex]?.querySelector('.relative.z-10');
+      const slide = swiper.slides[swiper.activeIndex];
+      if (!slide) return;
+
+      if (heroGsapReady) {
+        const items = slide.querySelectorAll('.relative.z-10 .coord-tag, .relative.z-10 h2, .relative.z-10 p, .relative.z-10 a');
+        if (!items.length) return;
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        gsap.fromTo(items,
+          { autoAlpha: 0, y: 24 },
+          { autoAlpha: 1, y: 0, duration: reduceMotion ? 0 : 0.8, ease: 'power2.out', stagger: reduceMotion ? 0 : 0.15 }
+        );
+        return;
+      }
+
+      const content = slide.querySelector('.relative.z-10');
       if (!content) return;
       content.classList.remove('hero-slide-anim');
       void content.offsetWidth; // forzar reflow para reiniciar animación
@@ -176,7 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     var heroSwiper = new Swiper(".mySwiper", {
-      effect: "fade", loop: true,
+      effect: "fade", loop: true, speed: 1000,
+      fadeEffect: { crossFade: true },
       pagination: { el: ".swiper-pagination", clickable: true },
       navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
       autoplay: { delay: 6000, disableOnInteraction: false },
@@ -189,8 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.querySelector('.propertiesSwiper')) {
      new Swiper(".propertiesSwiper", {
-      slidesPerView: 1, spaceBetween: 30, loop: true,
-      autoplay: { delay: 3000, disableOnInteraction: false },
+      slidesPerView: 1, spaceBetween: 30, loop: true, speed: 700,
+      autoplay: { delay: 4000, disableOnInteraction: false },
       pagination: { el: ".swiper-pagination", clickable: true },
       navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
       breakpoints: {
@@ -204,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.querySelector('.pricingSwiper')) {
     new Swiper(".pricingSwiper", {
-      slidesPerView: 1, spaceBetween: 30, loop: true,
+      slidesPerView: 1, spaceBetween: 30, loop: true, speed: 700,
       pagination: { el: ".swiper-pagination", clickable: true },
       navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
       breakpoints: {
@@ -217,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.querySelector('.gallerySwiper')) {
      new Swiper(".gallerySwiper", {
-       slidesPerView: 1, spaceBetween: 0, rewind: true, effect: "fade",
+       slidesPerView: 1, spaceBetween: 0, rewind: true, effect: "fade", speed: 800,
        fadeEffect: { crossFade: true },
        autoplay: { delay: 4000, disableOnInteraction: false },
        pagination: { el: ".swiper-pagination", clickable: true },
@@ -233,8 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const blogItems = document.querySelectorAll('.blog-item');
 
   if (filterBtns.length > 0) {
-    const activeClass = "filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-md bg-orange-600 text-white border border-orange-600";
-    const inactiveClass = "filter-btn px-6 py-2 rounded-full font-semibold transition-all cursor-pointer shadow-sm bg-white text-gray-600 border border-gray-200 hover:border-orange-600 hover:text-orange-600";
+    const activeClass = "filter-btn px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer shadow-sm bg-orange-600 text-white border border-orange-600";
+    const inactiveClass = "filter-btn px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer shadow-sm bg-white text-gray-600 border border-gray-200 hover:border-orange-600 hover:text-orange-600";
 
     filterBtns.forEach((btn, index) => {
         if (index === 0) btn.className = activeClass;
@@ -388,37 +409,94 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 8. ANIMACIONES DE SCROLL (Reveal)
   // ==========================================
-  function initScrollReveal() {
-    if (!('IntersectionObserver' in window)) return;
-
+  // Misma lógica de selección de siempre (encabezados, grillas, cards,
+  // titulares sueltos); el motor de animación usa GSAP + ScrollTrigger.batch()
+  // cuando están cargados (index.html) para un stagger que responde al ritmo
+  // real del scroll, y cae de vuelta al IntersectionObserver + CSS anterior
+  // en las páginas que todavía no incluyen esos scripts.
+  function collectRevealTargets() {
     const seen = new WeakSet();
+    const targets = [];
 
-    function tag(el, ms) {
+    function tag(el) {
       if (!el || seen.has(el) || el.closest('.swiper-wrapper, .swiper-slide')) return;
       seen.add(el);
-      el.classList.add('sr');
-      if (ms) el.style.transitionDelay = ms + 'ms';
+      targets.push(el);
     }
 
-    // Bloques de encabezado de sección (título + subtítulo)
     document.querySelectorAll('section .text-center').forEach(el => {
       if (!el.closest('.swiper')) tag(el);
     });
 
-    // Items de grillas con efecto escalonado
     document.querySelectorAll('section .grid').forEach(grid => {
       if (!grid.closest('.swiper'))
-        [...grid.children].forEach((c, i) => tag(c, i * 110));
+        [...grid.children].forEach(c => tag(c));
     });
 
-    // Cards (article) fuera de swipers y grillas
     document.querySelectorAll('section article').forEach(el => {
       if (!el.closest('.swiper, .grid')) tag(el);
     });
 
-    // Titulares sueltos no incluidos en bloques ya animados
     document.querySelectorAll('section h2, section h3').forEach(el => {
       if (!el.closest('.text-center, article, .swiper')) tag(el);
+    });
+
+    return targets;
+  }
+
+  function initScrollRevealGSAP() {
+    gsap.registerPlugin(ScrollTrigger);
+    const targets = collectRevealTargets();
+    if (!targets.length) return;
+
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.set(targets, { autoAlpha: 0, y: 28 });
+      ScrollTrigger.batch(targets, {
+        start: 'top 92%',
+        once: true,
+        onEnter: (batch) => gsap.to(batch, {
+          autoAlpha: 1, y: 0, duration: 0.9, ease: 'power2.out',
+          stagger: { each: 0.12, from: 'start' }
+        })
+      });
+    });
+  }
+
+  // Paralaje sutil en la foto del hero: al bajar, se desplaza más lento que
+  // el scroll, dando profundidad sin distraer del texto ni del CTA.
+  function initHeroParallaxGSAP() {
+    const heroSection = document.getElementById('inicio');
+    const heroImages = document.querySelectorAll('.hero-bg');
+    if (!heroSection || !heroImages.length) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.to(heroImages, {
+        yPercent: 8,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroSection,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    });
+  }
+
+  function initScrollRevealFallback() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const targets = collectRevealTargets();
+    const perParentIndex = new Map();
+    targets.forEach(el => {
+      el.classList.add('sr');
+      const parent = el.parentElement;
+      const i = perParentIndex.get(parent) || 0;
+      perParentIndex.set(parent, i + 1);
+      if (i) el.style.transitionDelay = (i * 110) + 'ms';
     });
 
     const io = new IntersectionObserver(entries => {
@@ -433,6 +511,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.sr').forEach(el => io.observe(el));
   }
 
-  initScrollReveal();
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    initScrollRevealGSAP();
+    initHeroParallaxGSAP();
+  } else {
+    initScrollRevealFallback();
+  }
 
 });

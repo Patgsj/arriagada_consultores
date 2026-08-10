@@ -1,8 +1,43 @@
 @import "tailwindcss";
 
+/*
+  Sistema de color propio de Arriagada Consultores: se mantiene el naranja
+  de marca original (orange-600 #ea580c) y se reemplaza únicamente la
+  escala "gray" de stock de Tailwind por una piedra cálida a tono. Como
+  cientos de clases gray-* ya están usadas en las 11 páginas, sobrescribir
+  aquí recolorea todo el sitio sin tocar cada archivo.
+*/
+@theme {
+  --color-gray-50: #f7f5f1;
+  --color-gray-100: #efebe4;
+  --color-gray-200: #ddd6cb;
+  --color-gray-300: #c3b9aa;
+  --color-gray-400: #a69986;
+  --color-gray-500: #8a7c68;
+  --color-gray-600: #6b6152;
+  --color-gray-700: #504739;
+  --color-gray-800: #362f26;
+  --color-gray-900: #221f1a;
+  --color-gray-950: #17140f;
+
+  --font-poppins: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  --font-data: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Transiciones más pausadas por defecto (afecta cualquier `transition`/`transition-colors`
+     sin duration-* explícita) para que nada en el sitio se sienta "de golpe". */
+  --default-transition-duration: 400ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @layer base {
   html {
-    font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-family: 'Public Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -10,31 +45,51 @@
   --swiper-pagination-color: #ea580c;
 }
 
+/* Paginación del hero: barras finas en vez de los círculos por defecto de Swiper */
+.mySwiper .swiper-pagination-bullet {
+  border-radius: 8px;
+  width: 28px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: background-color 0.4s ease;
+}
+.mySwiper .swiper-pagination-bullet-active {
+  background: #ea580c;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 #main-nav.scrolled {
-  background-color: #212529;
+  background-color: #221f1a;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
 
-.propertiesSwiper .swiper-button-next,
-.propertiesSwiper .swiper-button-prev {
-  background-color: white;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --swiper-navigation-color: #ea580c;
-  --swiper-navigation-size: 20px;
-  transition: all 0.3s ease;
+/* --- Firma visual: curvas de nivel topográficas --- */
+.contour-lines {
+  background-image:
+    repeating-radial-gradient(circle at 15% 30%, transparent 0, transparent 38px, rgba(34,31,26,0.06) 39px, rgba(34,31,26,0.06) 40px),
+    repeating-radial-gradient(circle at 85% 75%, transparent 0, transparent 52px, rgba(34,31,26,0.05) 53px, rgba(34,31,26,0.05) 54px);
+  background-repeat: no-repeat;
+  background-size: 140% 140%, 160% 160%;
+  background-position: -10% -20%, 110% 120%;
 }
 
-.propertiesSwiper .swiper-button-next:hover,
-.propertiesSwiper .swiper-button-prev:hover {
-  background-color: #fff7ed;
-  transform: scale(1.1);
+.contour-lines-dark {
+  background-image:
+    repeating-radial-gradient(circle at 15% 30%, transparent 0, transparent 38px, rgba(246,236,224,0.05) 39px, rgba(246,236,224,0.05) 40px),
+    repeating-radial-gradient(circle at 85% 75%, transparent 0, transparent 52px, rgba(246,236,224,0.045) 53px, rgba(246,236,224,0.045) 54px);
+  background-repeat: no-repeat;
+  background-size: 140% 140%, 160% 160%;
+  background-position: -10% -20%, 110% 120%;
+}
+
+.coord-tag {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
 }
 
 .scrollbar-hide {
@@ -46,28 +101,28 @@ html {
   display: none;
 }
 
-/* Flechas de Carruseles (Propiedades Y Precios) */
+/* Flechas de Carruseles (Propiedades Y Precios) — sin círculo, hairline */
 .propertiesSwiper .swiper-button-next,
 .propertiesSwiper .swiper-button-prev,
-.pricingSwiper .swiper-button-next,   /* <--- NUEVO */
-.pricingSwiper .swiper-button-prev {  /* <--- NUEVO */
+.pricingSwiper .swiper-button-next,
+.pricingSwiper .swiper-button-prev {
   background-color: white;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #ddd6cb;
   --swiper-navigation-color: #ea580c;
-  --swiper-navigation-size: 20px;
-  transition: all 0.3s ease;
+  --swiper-navigation-size: 18px;
+  transition: all 0.4s ease;
 }
 
 /* Efecto Hover en las flechas */
 .propertiesSwiper .swiper-button-next:hover,
 .propertiesSwiper .swiper-button-prev:hover,
-.pricingSwiper .swiper-button-next:hover,  /* <--- NUEVO */
-.pricingSwiper .swiper-button-prev:hover { /* <--- NUEVO */
+.pricingSwiper .swiper-button-next:hover,
+.pricingSwiper .swiper-button-prev:hover {
   background-color: #fff7ed;
-  transform: scale(1.1);
+  border-color: #ea580c;
 }
 
 /* --- Navbar Entry Animation --- */
@@ -76,7 +131,7 @@ html {
   to   { opacity: 1; transform: translateY(0); }
 }
 #main-nav {
-  animation: navIn 0.45s ease-out forwards;
+  animation: navIn 0.7s ease-out forwards;
 }
 @media (prefers-reduced-motion: reduce) {
   #main-nav { animation: none; }
@@ -89,12 +144,12 @@ html {
 }
 .hero-slide-anim > * {
   opacity: 0;
-  animation: heroIn 0.7s ease-out forwards;
+  animation: heroIn 1s ease-out forwards;
 }
-.hero-slide-anim > *:nth-child(1) { animation-delay: 0.05s; }
-.hero-slide-anim > *:nth-child(2) { animation-delay: 0.2s; }
-.hero-slide-anim > *:nth-child(3) { animation-delay: 0.38s; }
-.hero-slide-anim > *:nth-child(4) { animation-delay: 0.52s; }
+.hero-slide-anim > *:nth-child(1) { animation-delay: 0.1s; }
+.hero-slide-anim > *:nth-child(2) { animation-delay: 0.3s; }
+.hero-slide-anim > *:nth-child(3) { animation-delay: 0.55s; }
+.hero-slide-anim > *:nth-child(4) { animation-delay: 0.75s; }
 @media (prefers-reduced-motion: reduce) {
   .hero-slide-anim > * { animation: none; opacity: 1; }
 }
@@ -103,7 +158,7 @@ html {
 .sr {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
 }
 .sr.sr-show {
   opacity: 1;
