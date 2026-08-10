@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elementId === 'navbar-placeholder') {
         initMobileMenu();
         initScrollNav();
+        initHashScroll();
         setTimeout(initActiveLinks, 500);
       }
     }
@@ -82,16 +83,65 @@ document.addEventListener('DOMContentLoaded', () => {
   function initScrollNav() {
     const nav = document.getElementById('main-nav');
     if (!nav) return;
-    
+
     // Optimización: Solo cambia la clase si es necesario
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
-        if(!nav.classList.contains('bg-black/90')) nav.classList.add('bg-black/90', 'backdrop-blur-md', 'shadow-lg'); 
+        if(!nav.classList.contains('bg-black/90')) nav.classList.add('bg-black/90', 'backdrop-blur-md', 'shadow-lg');
       } else {
         if(nav.classList.contains('bg-black/90')) nav.classList.remove('bg-black/90', 'backdrop-blur-md', 'shadow-lg');
       }
     }, { passive: true }); // 'passive: true' mejora el rendimiento en móviles
   }
+
+  // ==========================================
+  // 2b. SCROLL A SECCIÓN DESCONTANDO EL NAV FIJO
+  // ==========================================
+  // Los enlaces del nav/footer apuntan a index.html#seccion (para que
+  // funcionen igual desde cualquier página interior). Esto corrige el
+  // aterrizaje: sin esto, el salto nativo del navegador deja la sección
+  // tapada bajo el nav fijo, o no calza exacto si el layout aún se está
+  // acomodando (imágenes/fuentes cargando).
+  function scrollToHash(hash, smooth) {
+    const id = (hash || '').replace('#', '');
+    const target = id && document.getElementById(id);
+    if (!target) return false;
+
+    const nav = document.getElementById('main-nav');
+    const offset = (nav ? nav.offsetHeight : 0) + 40;
+    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({ top: Math.max(top, 0), behavior: smooth ? 'smooth' : 'auto' });
+    return true;
+  }
+
+  function initHashScroll() {
+    document.querySelectorAll('#main-nav a[href*="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href') || '';
+        const hashIndex = href.indexOf('#');
+        if (hashIndex === -1) return;
+        const hash = href.slice(hashIndex);
+
+        // Si la sección no existe en esta página (estamos en una página
+        // interior), dejamos que el navegador navegue a index.html normal.
+        if (!document.getElementById(hash.slice(1))) return;
+
+        e.preventDefault();
+        history.pushState(null, '', hash);
+        scrollToHash(hash, true);
+      });
+    });
+  }
+
+  // Al cargar la página con un hash en la URL (ej. llegando desde una
+  // página interior a index.html#propiedades), corregimos el aterrizaje
+  // una vez que la carga (imágenes/fuentes) se asienta.
+  window.addEventListener('load', () => {
+    if (!location.hash) return;
+    scrollToHash(location.hash, false);
+    setTimeout(() => scrollToHash(location.hash, false), 350);
+  });
 
   // ==========================================
   // 3. SCROLL SPY OPTIMIZADO (Solución al "Golpe")
@@ -463,29 +513,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Paralaje sutil en la foto del hero: al bajar, se desplaza más lento que
-  // el scroll, dando profundidad sin distraer del texto ni del CTA.
-  function initHeroParallaxGSAP() {
-    const heroSection = document.getElementById('inicio');
-    const heroImages = document.querySelectorAll('.hero-bg');
-    if (!heroSection || !heroImages.length) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-    const mm = gsap.matchMedia();
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.to(heroImages, {
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: heroSection,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      });
-    });
-  }
-
   function initScrollRevealFallback() {
     if (!('IntersectionObserver' in window)) return;
 
@@ -513,7 +540,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     initScrollRevealGSAP();
-    initHeroParallaxGSAP();
   } else {
     initScrollRevealFallback();
   }
