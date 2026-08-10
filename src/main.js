@@ -202,7 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   link.classList.add('bg-white', 'text-orange-600', 'hover:bg-gray-100');
               }
           } else {
-              link.classList.add('text-white', 'font-bold');
+              link.classList.add('text-white', 'font-bold', 'border-orange-500');
+              link.classList.remove('border-transparent');
           }
       } else {
           if (isButton) {
@@ -211,8 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   link.classList.remove('bg-white', 'text-orange-600', 'hover:bg-gray-100');
               }
           } else {
-              link.classList.add('text-white');
-              link.classList.remove('font-bold');
+              link.classList.add('text-white', 'border-transparent');
+              link.classList.remove('font-bold', 'border-orange-500');
           }
       }
     });
