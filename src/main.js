@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (cached) inject(cached);
 
-    fetch(url)
+    fetch(url, { cache: 'no-cache' })
       .then(r => { if (!r.ok) throw new Error('Error al cargar ' + url); return r.text(); })
       .then(data => {
         const changed = data !== cached;
@@ -202,8 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   link.classList.add('bg-white', 'text-orange-600', 'hover:bg-gray-100');
               }
           } else {
-              link.classList.remove('text-white');
-              link.classList.add('text-orange-400', 'font-bold');
+              link.classList.add('text-white', 'font-bold');
           }
       } else {
           if (isButton) {
@@ -213,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
           } else {
               link.classList.add('text-white');
-              link.classList.remove('text-orange-400', 'font-bold');
+              link.classList.remove('font-bold');
           }
       }
     });
