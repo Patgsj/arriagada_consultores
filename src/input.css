@@ -109,6 +109,14 @@ section[id] {
   display: none;
 }
 
+/* Chevrones del hero: más compactos en mobile */
+@media (max-width: 767px) {
+  #inicio .swiper-button-next,
+  #inicio .swiper-button-prev {
+    --swiper-navigation-size: 26px;
+  }
+}
+
 /* Flechas de Carruseles (Propiedades Y Precios) — sin círculo, hairline */
 .propertiesSwiper .swiper-button-next,
 .propertiesSwiper .swiper-button-prev,
