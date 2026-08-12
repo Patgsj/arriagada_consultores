@@ -106,7 +106,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // acomodando (imágenes/fuentes cargando).
   function updateNavHeightVar() {
     const nav = document.getElementById('main-nav');
-    if (nav) document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+    if (!nav) return;
+    // Medimos solo la fila persistente (logo + links + botón hamburguesa),
+    // nunca el nav completo: si el menú mobile está abierto, su alto se
+    // suma al de #main-nav y el aterrizaje deja de calzar bajo la barra.
+    const row = document.getElementById('nav-bar-row');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (row) {
+      const navStyles = getComputedStyle(nav);
+      const paddingY = (parseFloat(navStyles.paddingTop) || 0) + (parseFloat(navStyles.paddingBottom) || 0);
+      // El margen superior del menú mobile ocupa espacio incluso colapsado
+      // (max-height:0 no recorta márgenes), así que también cuenta.
+      const menuMarginTop = mobileMenu ? (parseFloat(getComputedStyle(mobileMenu).marginTop) || 0) : 0;
+      document.documentElement.style.setProperty('--nav-h', (row.offsetHeight + paddingY + menuMarginTop) + 'px');
+    } else {
+      document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+    }
   }
 
   function scrollToHash(hash, smooth) {
@@ -202,8 +217,14 @@ document.addEventListener('DOMContentLoaded', () => {
                   link.classList.add('bg-white', 'text-orange-600', 'hover:bg-gray-100');
               }
           } else {
-              link.classList.add('text-white', 'font-bold', 'border-orange-500');
-              link.classList.remove('border-transparent');
+              // Enlace de texto (desktop o mobile): color naranja = "estás aquí".
+              link.classList.add('text-orange-400', 'font-bold');
+              link.classList.remove('text-white');
+              if (link.classList.contains('border-b-2')) {
+                  // Solo el nav desktop usa el subrayado inferior.
+                  link.classList.add('border-orange-400');
+                  link.classList.remove('border-transparent');
+              }
           }
       } else {
           if (isButton) {
@@ -212,8 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
                   link.classList.remove('bg-white', 'text-orange-600', 'hover:bg-gray-100');
               }
           } else {
-              link.classList.add('text-white', 'border-transparent');
-              link.classList.remove('font-bold', 'border-orange-500');
+              link.classList.add('text-white');
+              link.classList.remove('text-orange-400', 'font-bold');
+              if (link.classList.contains('border-b-2')) {
+                  link.classList.add('border-transparent');
+                  link.classList.remove('border-orange-400');
+              }
           }
       }
     });
