@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Redirigir HTTP → HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirigir URLs con .html a URLs limpias (301)
+RewriteCond %{THE_REQUEST} \s(.+?)\.html[\s?] [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Servir archivos .html cuando se accede sin extensión
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^ %{REQUEST_URI}.html [L]
