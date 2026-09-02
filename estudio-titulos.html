@@ -30,22 +30,118 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Estudio de Títulos — Arriagada Consultores",
-    "provider": {
-      "@type": "RealEstateAgent",
-      "name": "Arriagada Consultores",
-      "url": "https://arriagadaconsultores.cl",
-      "telephone": "+56995838619",
-      "email": "info@arriagadaconsultores.cl"
-    },
-    "serviceType": "Estudio de Títulos Inmobiliarios",
-    "areaServed": [
-      { "@type": "AdministrativeArea", "name": "Región de Ñuble" },
-      { "@type": "AdministrativeArea", "name": "Región de Valparaíso" }
-    ],
-    "description": "Revisión legal exhaustiva de escrituras, hipotecas, prohibiciones y gravámenes para garantizar inversiones inmobiliarias seguras.",
-    "url": "https://arriagadaconsultores.cl/estudio-titulos"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://arriagadaconsultores.cl/estudio-titulos#webpage",
+        "url": "https://arriagadaconsultores.cl/estudio-titulos",
+        "name": "Estudio de Títulos Inmobiliarios en Ñuble | Arriagada",
+        "description": "Estudio de títulos exhaustivo para una compra inmobiliaria segura en Ñuble y Valparaíso. Revisión legal de escrituras, hipotecas y gravámenes.",
+        "inLanguage": "es-CL",
+        "isPartOf": { "@id": "https://arriagadaconsultores.cl" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://arriagadaconsultores.cl/" },
+            { "@type": "ListItem", "position": 2, "name": "Estudio de Títulos", "item": "https://arriagadaconsultores.cl/estudio-titulos" }
+          ]
+        }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Estudio de Títulos — Arriagada Consultores",
+        "provider": {
+          "@type": "RealEstateAgent",
+          "name": "Arriagada Consultores",
+          "url": "https://arriagadaconsultores.cl",
+          "telephone": "+56995838619",
+          "email": "info@arriagadaconsultores.cl"
+        },
+        "serviceType": "Estudio de Títulos Inmobiliarios",
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Región de Ñuble" },
+          { "@type": "AdministrativeArea", "name": "San Carlos" },
+          { "@type": "AdministrativeArea", "name": "Chillán" },
+          { "@type": "AdministrativeArea", "name": "Quirihue" },
+          { "@type": "AdministrativeArea", "name": "San Fabián de Alico" },
+          { "@type": "AdministrativeArea", "name": "Cauquenes" },
+          { "@type": "AdministrativeArea", "name": "Región de Valparaíso" },
+          { "@type": "AdministrativeArea", "name": "San Felipe" },
+          { "@type": "AdministrativeArea", "name": "Los Andes" },
+          { "@type": "AdministrativeArea", "name": "Quillota" },
+          { "@type": "AdministrativeArea", "name": "La Ligua" },
+          { "@type": "AdministrativeArea", "name": "Petorca" }
+        ],
+        "description": "Revisión legal exhaustiva de escrituras, hipotecas, prohibiciones y gravámenes para garantizar inversiones inmobiliarias seguras.",
+        "url": "https://arriagadaconsultores.cl/estudio-titulos",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Tipos de Estudio de Títulos",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Estudio Inmobiliario" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Estudio para Crédito Hipotecario" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Estudio para Regularización" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Derechos Hereditarios" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Propiedades Rurales" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Derechos de Agua" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Proyectos y Loteos" } }
+          ]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Qué es un estudio de títulos y por qué es importante?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Es la revisión legal de la historia de dominio de una propiedad (normalmente los últimos 10 años) para confirmar que quien vende es realmente el dueño y que no existen hipotecas, prohibiciones, embargos o litigios ocultos. Evita que compres un problema legal junto con la propiedad."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto tiempo toma un estudio de títulos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un estudio inmobiliario estándar toma entre 5 y 10 días hábiles, dependiendo de la antigüedad de la propiedad y de si hay herencias, comuneros o gravámenes que revisar en el Conservador de Bienes Raíces."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué diferencia hay entre un estudio inmobiliario y uno para crédito hipotecario?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El estudio inmobiliario confirma el dominio para tu propia tranquilidad como comprador. El estudio para crédito hipotecario es más exigente porque debe cumplir los requisitos específicos que pide el banco antes de aprobar el financiamiento."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Revisan también terrenos rurales, derechos de agua y proyectos de loteo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. Además del estudio inmobiliario estándar, evaluamos servidumbres, accesos y aptitud de subdivisión en predios agrícolas, derechos de aprovechamiento de agua ante la DGA, y la viabilidad dominical y urbanística de proyectos de loteo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa si el estudio de títulos detecta un problema en la propiedad?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Te explicamos el riesgo específico y las alternativas: alzar una hipoteca o prohibición, tramitar una posesión efectiva pendiente, o exigir la regularización antes de firmar. Como también hacemos asesoría legal, podemos resolver el problema en el mismo equipo en vez de solo advertírtelo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Hacen estudios de títulos en la Región de Valparaíso además de Ñuble?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, realizamos estudios de títulos en toda la Región de Ñuble (San Carlos, Chillán, Quirihue, San Fabián de Alico, Cauquenes) y en la Región de Valparaíso, incluyendo San Felipe, Los Andes, Quillota, La Ligua y Petorca."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -266,6 +362,46 @@
         <div class="swiper-button-prev"></div>
       </div>
 
+      <p class="text-center text-gray-500 text-sm mt-4 max-w-2xl mx-auto">
+        Atendemos en <strong class="text-gray-700">San Carlos, Chillán, Quirihue, San Fabián de Alico, Cauquenes</strong> y el resto de la Región de Ñuble, además de <strong class="text-gray-700">San Felipe, Los Andes, Quillota, La Ligua y Petorca</strong> en la Región de Valparaíso. Si el estudio detecta un problema legal, nuestra <a href="asesoria-legal" class="text-orange-600 font-semibold hover:underline">asesoría legal</a> lo resuelve dentro del mismo equipo.
+      </p>
+
+    </div>
+  </section>
+
+  <section class="w-full bg-gray-50 py-20 border-t border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-10">
+      <div class="text-center mb-14">
+        <span class="text-orange-600 font-bold tracking-wider uppercase text-sm bg-orange-50 px-3 py-1 rounded-md">Preguntas frecuentes</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4">Estudio de Títulos</h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Qué es un estudio de títulos y por qué es importante?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Es la revisión legal de la historia de dominio de una propiedad (normalmente los últimos 10 años) para confirmar que quien vende es realmente el dueño y que no existen hipotecas, prohibiciones, embargos o litigios ocultos. Evita que compres un problema legal junto con la propiedad.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Cuánto tiempo toma un estudio de títulos?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Un estudio inmobiliario estándar toma entre 5 y 10 días hábiles, dependiendo de la antigüedad de la propiedad y de si hay herencias, comuneros o gravámenes que revisar en el Conservador de Bienes Raíces.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Qué diferencia hay entre un estudio inmobiliario y uno para crédito hipotecario?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">El estudio inmobiliario confirma el dominio para tu propia tranquilidad como comprador. El estudio para crédito hipotecario es más exigente porque debe cumplir los requisitos específicos que pide el banco antes de aprobar el financiamiento.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Revisan también terrenos rurales, derechos de agua y proyectos de loteo?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Sí. Además del estudio inmobiliario estándar, evaluamos servidumbres, accesos y aptitud de subdivisión en predios agrícolas, derechos de aprovechamiento de agua ante la DGA, y la viabilidad dominical y urbanística de proyectos de loteo.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Qué pasa si el estudio de títulos detecta un problema en la propiedad?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Te explicamos el riesgo específico y las alternativas: alzar una hipoteca o prohibición, tramitar una posesión efectiva pendiente, o exigir la regularización antes de firmar. Como también hacemos asesoría legal, podemos resolver el problema en el mismo equipo en vez de solo advertírtelo.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Hacen estudios de títulos en la Región de Valparaíso además de Ñuble?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Sí, realizamos estudios de títulos en toda la Región de Ñuble (San Carlos, Chillán, Quirihue, San Fabián de Alico, Cauquenes) y en la Región de Valparaíso, incluyendo San Felipe, Los Andes, Quillota, La Ligua y Petorca.</p>
+        </div>
+      </div>
     </div>
   </section>
 

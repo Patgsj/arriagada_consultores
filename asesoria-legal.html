@@ -30,22 +30,117 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LegalService",
-    "name": "Asesoría Legal Inmobiliaria — Arriagada Consultores",
-    "provider": {
-      "@type": "RealEstateAgent",
-      "name": "Arriagada Consultores",
-      "url": "https://arriagadaconsultores.cl",
-      "telephone": "+56995838619",
-      "email": "info@arriagadaconsultores.cl"
-    },
-    "serviceType": "Asesoría Legal Inmobiliaria",
-    "areaServed": [
-      { "@type": "AdministrativeArea", "name": "Región de Ñuble" },
-      { "@type": "AdministrativeArea", "name": "Región de Valparaíso" }
-    ],
-    "description": "Redacción de contratos de compraventa, escrituras públicas, regularizaciones de propiedades y asesoría jurídica integral para proteger tu patrimonio inmobiliario.",
-    "url": "https://arriagadaconsultores.cl/asesoria-legal"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://arriagadaconsultores.cl/asesoria-legal#webpage",
+        "url": "https://arriagadaconsultores.cl/asesoria-legal",
+        "name": "Asesoría Legal Inmobiliaria en Ñuble | Arriagada Consultores",
+        "description": "Contratos de compraventa, escrituras y regularizaciones en Ñuble y Valparaíso. Protegemos tu inversión con expertos en derecho inmobiliario.",
+        "inLanguage": "es-CL",
+        "isPartOf": { "@id": "https://arriagadaconsultores.cl" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://arriagadaconsultores.cl/" },
+            { "@type": "ListItem", "position": 2, "name": "Asesoría Legal", "item": "https://arriagadaconsultores.cl/asesoria-legal" }
+          ]
+        }
+      },
+      {
+        "@type": "LegalService",
+        "name": "Asesoría Legal Inmobiliaria — Arriagada Consultores",
+        "provider": {
+          "@type": "RealEstateAgent",
+          "name": "Arriagada Consultores",
+          "url": "https://arriagadaconsultores.cl",
+          "telephone": "+56995838619",
+          "email": "info@arriagadaconsultores.cl"
+        },
+        "serviceType": "Asesoría Legal Inmobiliaria",
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Región de Ñuble" },
+          { "@type": "AdministrativeArea", "name": "San Carlos" },
+          { "@type": "AdministrativeArea", "name": "Chillán" },
+          { "@type": "AdministrativeArea", "name": "Quirihue" },
+          { "@type": "AdministrativeArea", "name": "San Fabián de Alico" },
+          { "@type": "AdministrativeArea", "name": "Cauquenes" },
+          { "@type": "AdministrativeArea", "name": "Región de Valparaíso" },
+          { "@type": "AdministrativeArea", "name": "San Felipe" },
+          { "@type": "AdministrativeArea", "name": "Los Andes" },
+          { "@type": "AdministrativeArea", "name": "Quillota" },
+          { "@type": "AdministrativeArea", "name": "La Ligua" },
+          { "@type": "AdministrativeArea", "name": "Petorca" }
+        ],
+        "description": "Redacción de contratos de compraventa, escrituras públicas, regularizaciones de propiedades y asesoría jurídica integral para proteger tu patrimonio inmobiliario.",
+        "url": "https://arriagadaconsultores.cl/asesoria-legal",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios de Asesoría Legal Inmobiliaria",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Promesas de Compraventa" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Escrituras Públicas" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Posesiones Efectivas" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Regularización D.L. 2.695" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Juicios de Arriendo" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Alzamiento de Hipotecas" } }
+          ]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Qué incluye la asesoría legal inmobiliaria de Arriagada Consultores?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Redacción y revisión de promesas de compraventa y escrituras públicas, tramitación de posesiones efectivas (herencias), regularización de la pequeña propiedad raíz (D.L. 2.695), alzamiento de hipotecas y prohibiciones, y representación en juicios de arriendo. Todo dentro del mismo equipo que hace el estudio de títulos y, si corresponde, la medición del terreno."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto cuesta una asesoría legal para comprar o vender una propiedad?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Depende del trámite: una escritura simple no cuesta lo mismo que una posesión efectiva con varios herederos o una regularización D.L. 2.695. Hacemos una evaluación inicial sin costo del caso y entregamos una cotización cerrada antes de empezar."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es una posesión efectiva y cuándo la necesito?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Es el trámite legal que reconoce a los herederos como continuadores del patrimonio de una persona fallecida. La necesitas antes de poder vender, subdividir o inscribir a tu nombre cualquier propiedad que quedó a nombre de un familiar fallecido."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es la regularización de la pequeña propiedad raíz (D.L. 2.695)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Es el procedimiento ante el Servicio de Vivienda y Urbanización (Bienes Nacionales en sector rural) para obtener un título de dominio inscrito cuando un terreno no tiene papeles al día o su dueño no cuenta con escritura formal. Es un paso frecuente antes de vender, heredar o subdividir un predio."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ya tengo un corredor de propiedades, ¿igual necesito un abogado?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. El corredor gestiona la venta comercial, pero la redacción de la promesa, la escritura y el estudio de títulos son actos jurídicos que requieren un abogado para evitar cláusulas mal redactadas, gravámenes ocultos o problemas de dominio. En Arriagada Consultores integramos ambas partes en un mismo equipo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Atienden casos legales en la Región de Valparaíso además de Ñuble?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, atendemos asesoría legal inmobiliaria en toda la Región de Ñuble (San Carlos, Chillán, Quirihue, San Fabián de Alico, Cauquenes) y también en la Región de Valparaíso, incluyendo San Felipe, Los Andes, Quillota, La Ligua y Petorca."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -86,6 +181,15 @@
         <h2 class="text-3xl font-bold text-gray-900">Trámites y Gestión Legal</h2>
         <p class="text-gray-600 mt-4 text-lg max-w-3xl mx-auto">
           Nos encargamos de toda la burocracia legal para que tú solo te preocupes de disfrutar tu inversión.
+        </p>
+      </div>
+
+      <div class="flex gap-4 bg-orange-50 border border-orange-200 rounded-xl p-5 mb-14 max-w-4xl mx-auto">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          <strong class="text-gray-900">A diferencia de un estudio jurídico externo</strong>, contamos con equipo propio de <a href="medicion-terrenos" class="text-orange-600 font-semibold hover:underline">topografía y subdivisión SAG</a> y de <a href="estudio-titulos" class="text-orange-600 font-semibold hover:underline">estudio de títulos</a>: si tu caso involucra medir, subdividir o verificar el dominio de un terreno, lo resolvemos todo dentro del mismo equipo, sin derivarte a terceros.
         </p>
       </div>
 
@@ -151,6 +255,46 @@
           </p>
         </article>
 
+      </div>
+
+      <p class="text-center text-gray-500 text-sm mt-16 max-w-2xl mx-auto">
+        Atendemos en <strong class="text-gray-700">San Carlos, Chillán, Quirihue, San Fabián de Alico, Cauquenes</strong> y el resto de la Región de Ñuble, además de <strong class="text-gray-700">San Felipe, Los Andes, Quillota, La Ligua y Petorca</strong> en la Región de Valparaíso. Si tu trámite involucra un terreno rural, revisa también nuestra <a href="medicion-terrenos" class="text-orange-600 font-semibold hover:underline">subdivisión de terrenos SAG</a> o nuestro <a href="estudio-titulos" class="text-orange-600 font-semibold hover:underline">estudio de títulos</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="w-full bg-gray-50 py-20 border-t border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-10">
+      <div class="text-center mb-14">
+        <span class="text-orange-600 font-bold tracking-wider uppercase text-sm bg-orange-50 px-3 py-1 rounded-md">Preguntas frecuentes</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4">Asesoría Legal Inmobiliaria</h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Qué incluye la asesoría legal inmobiliaria de Arriagada Consultores?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Redacción y revisión de promesas de compraventa y escrituras públicas, tramitación de posesiones efectivas (herencias), regularización de la pequeña propiedad raíz (D.L. 2.695), alzamiento de hipotecas y prohibiciones, y representación en juicios de arriendo. Todo dentro del mismo equipo que hace el estudio de títulos y, si corresponde, la medición del terreno.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Cuánto cuesta una asesoría legal para comprar o vender una propiedad?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Depende del trámite: una escritura simple no cuesta lo mismo que una posesión efectiva con varios herederos o una regularización D.L. 2.695. Hacemos una evaluación inicial sin costo del caso y entregamos una cotización cerrada antes de empezar.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Qué es una posesión efectiva y cuándo la necesito?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Es el trámite legal que reconoce a los herederos como continuadores del patrimonio de una persona fallecida. La necesitas antes de poder vender, subdividir o inscribir a tu nombre cualquier propiedad que quedó a nombre de un familiar fallecido.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Qué es la regularización de la pequeña propiedad raíz (D.L. 2.695)?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Es el procedimiento para obtener un título de dominio inscrito cuando un terreno no tiene papeles al día o su dueño no cuenta con escritura formal. Es un paso frecuente antes de vender, heredar o subdividir un predio.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">Ya tengo un corredor de propiedades, ¿igual necesito un abogado?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Sí. El corredor gestiona la venta comercial, pero la redacción de la promesa, la escritura y el estudio de títulos son actos jurídicos que requieren un abogado para evitar cláusulas mal redactadas, gravámenes ocultos o problemas de dominio. En Arriagada Consultores integramos ambas partes en un mismo equipo.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <h3 class="font-bold text-gray-900 mb-2">¿Atienden casos legales en la Región de Valparaíso además de Ñuble?</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Sí, atendemos asesoría legal inmobiliaria en toda la Región de Ñuble (San Carlos, Chillán, Quirihue, San Fabián de Alico, Cauquenes) y también en la Región de Valparaíso, incluyendo San Felipe, Los Andes, Quillota, La Ligua y Petorca.</p>
+        </div>
       </div>
     </div>
   </section>
