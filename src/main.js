@@ -456,35 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(closeSidebarModalBtn) closeSidebarModalBtn.addEventListener('click', hideSidebarModal);
   }
 
-  // --- Widget WhatsApp (index y páginas que incluyan el bloque) ---
-  const waButton = document.getElementById('whatsapp-button');
-  const waChat = document.getElementById('chat-window');
-  const waOpenLink = document.getElementById('whatsapp-widget-open-link');
-  if (waButton && waChat) {
-    const setChatOpen = (open) => {
-      waChat.style.display = open ? 'block' : 'none';
-    };
-    waButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = waChat.style.display === 'block';
-      setChatOpen(!isOpen);
-    });
-    waButton.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
-      waButton.click();
-    });
-    document.addEventListener('click', (event) => {
-      if (waChat.style.display !== 'block') return;
-      if (!waChat.contains(event.target) && !waButton.contains(event.target)) {
-        setChatOpen(false);
-      }
-    });
-    if (waOpenLink) {
-      waOpenLink.addEventListener('click', () => setChatOpen(false));
-    }
-  }
-
   // ==========================================
   // 8. ANIMACIONES DE SCROLL (Reveal)
   // ==========================================
