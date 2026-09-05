@@ -119,7 +119,12 @@
           { "@type": "AdministrativeArea", "name": "San Fabián de Alico" },
           { "@type": "AdministrativeArea", "name": "Chillán" },
           { "@type": "AdministrativeArea", "name": "Cauquenes" },
-          { "@type": "AdministrativeArea", "name": "Región de Valparaíso" }
+          { "@type": "AdministrativeArea", "name": "Región de Valparaíso" },
+          { "@type": "AdministrativeArea", "name": "San Felipe" },
+          { "@type": "AdministrativeArea", "name": "Los Andes" },
+          { "@type": "AdministrativeArea", "name": "Quillota" },
+          { "@type": "AdministrativeArea", "name": "La Ligua" },
+          { "@type": "AdministrativeArea", "name": "Petorca" }
         ],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
@@ -612,7 +617,32 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="./src/main.js" defer></script>
 
-<div id="footer-placeholder"></div>
+  <div id="footer-placeholder">
+    <!-- Footer estático de respaldo. main.js lo reemplaza por footer.html al cargar.
+         Existe para que los crawlers que no ejecutan JavaScript (buscadores de IA)
+         vean el enlazado interno y los datos de contacto, que antes solo aparecían
+         después de que el fetch() inyectara el footer. -->
+    <footer data-footer-fallback class="w-full bg-gray-900 text-gray-400 py-12">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 text-sm">
+        <nav class="flex flex-wrap gap-x-6 gap-y-2 mb-6">
+        <a href="/" class="hover:text-orange-500 transition-colors duration-500">Inicio</a>
+        <a href="venta-propiedades" class="hover:text-orange-500 transition-colors duration-500">Venta de Propiedades</a>
+        <a href="medicion-terrenos" class="hover:text-orange-500 transition-colors duration-500">Medición y Subdivisión de Terrenos</a>
+        <a href="estudio-titulos" class="hover:text-orange-500 transition-colors duration-500">Estudio de Títulos</a>
+        <a href="asesoria-legal" class="hover:text-orange-500 transition-colors duration-500">Asesoría Legal</a>
+        <a href="parcelacion-las-pilcas" class="hover:text-orange-500 transition-colors duration-500">Parcelación Las Pilcas</a>
+        <a href="terrenos_trehuaco" class="hover:text-orange-500 transition-colors duration-500">Terrenos Urbanos Trehuaco</a>
+        <a href="terreno_las_tunas" class="hover:text-orange-500 transition-colors duration-500">Terreno Agrícola Las Tunas</a>
+        <a href="casa_Rosario" class="hover:text-orange-500 transition-colors duration-500">Casa Condominio El Rosario</a>
+        </nav>
+        <p>
+          Arriagada Consultores — Quirihue, Región de Ñuble ·
+          <a href="tel:+56995838619" class="hover:text-orange-500 transition-colors duration-500">+56 9 9583 8619</a> ·
+          <a href="mailto:info@arriagadaconsultores.cl" class="hover:text-orange-500 transition-colors duration-500">info@arriagadaconsultores.cl</a>
+        </p>
+      </div>
+    </footer>
+  </div>
 
 <script src="https://chatbot-arriagada-consultores.patricio-gsj.workers.dev/widget.js" data-position="bottom-right" data-bottom="90" defer></script>
 
