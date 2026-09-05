@@ -1,8 +1,15 @@
 RewriteEngine On
 
-# Redirigir HTTP → HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Canonicalizar host y protocolo en una sola redirección (HTTPS + sin www).
+# Antes: www.arriagadaconsultores.cl respondía 200 sin redirigir (host duplicado).
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://arriagadaconsultores.cl/$1 [L,R=301]
+
+# La home vive en "/" y en ninguna otra URL.
+# Antes: /index.html redirigía a /index, que respondía 200 (home duplicada).
+RewriteCond %{THE_REQUEST} \s/index(\.html)?[\s?] [NC]
+RewriteRule ^ / [R=301,L]
 
 # Redirigir URLs con .html a URLs limpias (301)
 RewriteCond %{THE_REQUEST} \s(.+?)\.html[\s?] [NC]
@@ -13,3 +20,28 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^ %{REQUEST_URI}.html [L]
+
+# Caché de estáticos. Antes no se enviaba ninguna cabecera de caché:
+# cada visita repetida volvía a descargar CSS, JS e imágenes completos.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType text/javascript           "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|jpg|jpeg|png|webp|svg|woff2|JPG)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+  # El HTML debe revalidarse siempre: los deploys por FTP no cambian el nombre del archivo.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
