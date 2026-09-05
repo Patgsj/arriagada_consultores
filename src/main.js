@@ -28,9 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const cached = sessionStorage.getItem(cacheKey);
 
     function inject(html, force) {
+      // El placeholder del footer trae un respaldo estático (para los crawlers que no
+      // ejecutan JS). Cuenta como vacío: siempre hay que reemplazarlo por el real.
+      const soloRespaldo = element.querySelector('[data-footer-fallback]') !== null;
+
       // No re-inyectar si el IIFE ya lo hizo (evita parpadeo y doble animación),
       // salvo que forcemos la actualización porque el HTML cambió respecto al caché.
-      if (force || !element.innerHTML.trim()) element.innerHTML = html;
+      if (force || soloRespaldo || !element.innerHTML.trim()) element.innerHTML = html;
       if (elementId === 'navbar-placeholder') {
         initMobileMenu();
         initScrollNav();

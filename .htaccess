@@ -21,6 +21,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^ %{REQUEST_URI}.html [L]
 
+# Archivos de build que no tienen por qué ser públicos.
+<FilesMatch "^(package(-lock)?\.json|tailwind\.config\.js|postcss\.config\.js)$">
+  Require all denied
+</FilesMatch>
+
 # Caché de estáticos. Antes no se enviaba ninguna cabecera de caché:
 # cada visita repetida volvía a descargar CSS, JS e imágenes completos.
 <IfModule mod_expires.c>
