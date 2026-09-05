@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es-CL" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,22 +30,58 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Corretaje y Venta de Propiedades — Arriagada Consultores",
-    "provider": {
-      "@type": "RealEstateAgent",
-      "name": "Arriagada Consultores",
-      "url": "https://arriagadaconsultores.cl",
-      "telephone": "+56995838619",
-      "email": "info@arriagadaconsultores.cl"
-    },
-    "serviceType": "Corretaje de Propiedades",
-    "areaServed": [
-      { "@type": "AdministrativeArea", "name": "Región de Ñuble" },
-      { "@type": "AdministrativeArea", "name": "Región de Valparaíso" }
-    ],
-    "description": "Servicio de corretaje inmobiliario profesional: valoración de mercado, difusión activa y acompañamiento hasta escritura en Ñuble y Valparaíso.",
-    "url": "https://arriagadaconsultores.cl/venta-propiedades"
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://arriagadaconsultores.cl/venta-propiedades#webpage",
+        "url": "https://arriagadaconsultores.cl/venta-propiedades",
+        "name": "Corretaje y Venta de Propiedades en Ñuble | Arriagada Consultores",
+        "description": "Corretaje profesional de propiedades en Ñuble y Valparaíso. Vendemos terrenos, parcelas y casas con acompañamiento hasta la escritura.",
+        "inLanguage": "es-CL",
+        "isPartOf": { "@type": "WebSite", "url": "https://arriagadaconsultores.cl" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://arriagadaconsultores.cl/" },
+          { "@type": "ListItem", "position": 2, "name": "Venta de Propiedades", "item": "https://arriagadaconsultores.cl/venta-propiedades" }
+        ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Corretaje y Venta de Propiedades — Arriagada Consultores",
+        "provider": {
+          "@type": "RealEstateAgent",
+          "name": "Arriagada Consultores",
+          "url": "https://arriagadaconsultores.cl",
+          "telephone": "+56995838619",
+          "email": "info@arriagadaconsultores.cl"
+        },
+        "serviceType": "Corretaje de Propiedades",
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Región de Ñuble" },
+          { "@type": "AdministrativeArea", "name": "San Carlos" },
+          { "@type": "AdministrativeArea", "name": "Chillán" },
+          { "@type": "AdministrativeArea", "name": "Quirihue" },
+          { "@type": "AdministrativeArea", "name": "San Fabián de Alico" },
+          { "@type": "AdministrativeArea", "name": "Trehuaco" },
+          { "@type": "AdministrativeArea", "name": "Cauquenes" },
+          { "@type": "AdministrativeArea", "name": "Región de Valparaíso" }
+        ],
+        "description": "Servicio de corretaje inmobiliario profesional: valoración de mercado, difusión activa y acompañamiento hasta escritura en Ñuble y Valparaíso.",
+        "url": "https://arriagadaconsultores.cl/venta-propiedades"
+      },
+      {
+        "@type": "ItemList",
+        "name": "Propiedades en venta — Arriagada Consultores",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "url": "https://arriagadaconsultores.cl/parcelacion-las-pilcas", "name": "Parcelación Las Pilcas, San Fabián de Alico" },
+          { "@type": "ListItem", "position": 2, "url": "https://arriagadaconsultores.cl/casa_Rosario", "name": "Casa en Condominio El Rosario, San Carlos" },
+          { "@type": "ListItem", "position": 3, "url": "https://arriagadaconsultores.cl/terreno_las_tunas", "name": "Terreno Agrícola 7,3 ha, Cauquenes" },
+          { "@type": "ListItem", "position": 4, "url": "https://arriagadaconsultores.cl/terrenos_trehuaco", "name": "Terrenos Urbanos, Trehuaco" }
+        ]
+      }
+    ]
   }
   </script>
 
@@ -53,11 +89,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&amp;w=1920&amp;auto=format&amp;fit=crop" fetchpriority="high">
 
   <link href="./src/output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body class="bg-gray-50 font-poppins">
 
@@ -165,7 +202,7 @@
           </div>
 
           <div class="mt-10">
-            <a href="index.html#contacto" class="inline-block bg-gray-900 text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition-all duration-500 ease-in-out ">
+            <a href="/#contacto" class="inline-block bg-gray-900 text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition-all duration-500 ease-in-out ">
               Quiero Vender mi Propiedad
             </a>
           </div>
@@ -175,9 +212,100 @@
     </div>
   </section>
 
+  <section class="py-24 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20">
+
+      <div class="text-center mb-16">
+        <span class="text-orange-600 font-bold tracking-wider uppercase text-sm">Cartera actual</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Propiedades en venta</h2>
+        <p class="text-gray-600 mt-4 text-lg max-w-2xl mx-auto">Estas son las propiedades que estamos gestionando hoy en Ñuble y el Maule. Todas con revisión legal previa de nuestro propio equipo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+          <a href="parcelacion-las-pilcas" class="relative block h-56 overflow-hidden rounded-t-xl">
+            <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" src="./assets/img_cards_propiedades/Las_Pilcas.jpg" alt="Venta de Parcelación Las Pilcas en San Fabián, Ñuble" loading="lazy" width="640" height="224">
+            <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Disponibles</span>
+          </a>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Parcelación Las Pilcas</h3>
+            <p class="text-xs text-gray-500 flex items-center mb-4">
+              <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> San Fabián de Alico, Ñuble
+            </p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">Parcelas de 5.000 m² con rol propio, agua potable y luz soterrada.</p>
+            <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
+              <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Desde</span>
+              <span class="coord-tag text-lg font-bold text-orange-600">$45.000.000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+          <a href="casa_Rosario" class="relative block h-56 overflow-hidden rounded-t-xl">
+            <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" src="./assets/img_cards_propiedades/casa_vecino.jpg" alt="Venta de Casa en Condominio El Rosario, San Carlos, Ñuble" loading="lazy" width="640" height="224">
+            <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Disponible</span>
+          </a>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Casa en Condominio El Rosario</h3>
+            <p class="text-xs text-gray-500 flex items-center mb-4">
+              <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> San Carlos, Ñuble
+            </p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">Casa residencial en condominio, entorno de naturaleza y con todas las comodidades.</p>
+            <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
+              <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
+              <span class="coord-tag text-lg font-bold text-orange-600">$215.000.000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+          <a href="terreno_las_tunas" class="relative block h-56 overflow-hidden rounded-t-xl">
+            <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" src="./assets/img_cards_propiedades/Terreno_sector_Las_Tunas.jpg" alt="Venta de Terreno Agrícola 7,3 ha en Cauquenes, Maule" loading="lazy" width="640" height="224">
+            <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Disponible</span>
+          </a>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Terreno Agrícola 7,3 ha</h3>
+            <p class="text-xs text-gray-500 flex items-center mb-4">
+              <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> Cauquenes, Región del Maule
+            </p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">7,3 hectáreas con 5 ha de eucaliptus listos para cosecha.</p>
+            <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
+              <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Valor</span>
+              <span class="coord-tag text-lg font-bold text-orange-600">$56.000.000</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="group bg-white overflow-hidden flex flex-col h-full rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(34,31,26,0.06)] hover:shadow-[0_20px_40px_rgba(34,31,26,0.14)] hover:border-orange-600 hover:-translate-y-1 transition-all duration-500">
+          <a href="terrenos_trehuaco" class="relative block h-56 overflow-hidden rounded-t-xl">
+            <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" src="./assets/img_cards_propiedades/Terrrenos_Urbanos_Trehuaco.JPG" alt="Venta de Terrenos Urbanos en Trehuaco, Ñuble" loading="lazy" width="640" height="224">
+            <span class="absolute top-4 right-4 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Disponibles</span>
+          </a>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-lg font-bold text-gray-900 mb-1">Terrenos Sector Urbano</h3>
+            <p class="text-xs text-gray-500 flex items-center mb-4">
+              <i class="fa-solid fa-location-dot text-orange-500 mr-1"></i> Trehuaco, Ñuble
+            </p>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">Lotes desde 300 m² hasta 7.888 m² con factibilidad de agua, luz y alcantarillado.</p>
+            <div class="mt-auto pt-3 border-t border-gray-200 flex items-center justify-between">
+              <span class="text-gray-400 text-[10px] font-medium uppercase tracking-wide">Consulta</span>
+              <span class="coord-tag text-lg font-bold text-orange-600">Ver valores</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="text-center text-gray-500 text-sm mt-14 max-w-2xl mx-auto">
+        ¿Vas a comprar y necesitas revisar los papeles antes de firmar? Revisa nuestro <a href="estudio-titulos" class="text-orange-600 font-semibold hover:underline">estudio de títulos</a>. Si el terreno hay que dividirlo o medirlo, vemos también la <a href="medicion-terrenos" class="text-orange-600 font-semibold hover:underline">subdivisión de terrenos SAG</a> y la <a href="asesoria-legal" class="text-orange-600 font-semibold hover:underline">asesoría legal</a> con el mismo equipo.
+      </p>
+
+    </div>
+  </section>
+
   <div id="footer-placeholder"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="./src/main.js" defer></script>
 
 </body>
