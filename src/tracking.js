@@ -10,9 +10,9 @@
 
   const SITIO = 'arriagada';
 
-  // Pendiente: crear la propiedad de GA4 para este dominio y poner acá su id
-  // (formato G-XXXXXXXXXX). Mientras esté vacío, solo se mide en Google Ads.
-  const GA4 = '';
+  // Propiedad "Arriagada Consultores" en la cuenta de Analytics de hombremilagro@,
+  // la misma donde vive el Search Console de este dominio.
+  const GA4 = 'G-S4P63QX97K';
   const ADS = 'AW-741110742';
 
   // ------------------------------------------
