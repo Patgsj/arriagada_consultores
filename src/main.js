@@ -331,55 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================
-  // 5. LÓGICA FILTRO BLOG
-  // ==========================================
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const blogItems = document.querySelectorAll('.blog-item');
-
-  if (filterBtns.length > 0) {
-    const activeClass = "filter-btn px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer shadow-sm bg-orange-600 text-white border border-orange-600";
-    const inactiveClass = "filter-btn px-6 py-2 rounded-lg font-semibold transition-all cursor-pointer shadow-sm bg-white text-gray-600 border border-gray-200 hover:border-orange-600 hover:text-orange-600";
-
-    filterBtns.forEach((btn, index) => {
-        if (index === 0) btn.className = activeClass;
-        else btn.className = inactiveClass;
-    });
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.classList.contains('bg-orange-600')) return;
-
-        filterBtns.forEach(b => b.className = inactiveClass);
-        btn.className = activeClass;
-
-        blogItems.forEach(item => {
-          item.classList.remove('opacity-100');
-          item.classList.add('opacity-0'); 
-        });
-
-        setTimeout(() => {
-          const filterValue = btn.getAttribute('data-filter');
-          blogItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-            if (filterValue === 'all' || category === filterValue) {
-              item.classList.remove('hidden');
-              item.classList.add('flex');
-              setTimeout(() => {
-                item.classList.remove('opacity-0');
-                item.classList.add('opacity-100');
-              }, 50);
-            } else {
-              item.classList.add('hidden');
-              item.classList.remove('flex');
-            }
-          });
-        }, 300);
-      });
-    });
-  }
-
-  // ==========================================
-  // 6. FORMULARIO DE CONTACTO PRINCIPAL
+  // 5. FORMULARIO DE CONTACTO PRINCIPAL
   // ==========================================
   const contactForm = document.getElementById('contactForm');
   const successModal = document.getElementById('successModal');
@@ -423,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 7. FORMULARIO SIDEBAR (PROPIEDADES)
+  // 6. FORMULARIO SIDEBAR (PROPIEDADES)
   // ==========================================
   const sidebarForm = document.getElementById('sidebarForm');
   const sidebarSuccessModal = document.getElementById('sidebarSuccessModal');
@@ -471,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 7b. CTA QUE ABREN EL ASISTENTE
+  // 6b. CTA QUE ABREN EL ASISTENTE
   // ==========================================
   // El widget del chat expone window.chatAsistente al cargar. Si todavía no está
   // (script async que aún no llegó, o worker caído), el CTA no queda muerto: cae
@@ -492,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 8. ANIMACIONES DE SCROLL (Reveal)
+  // 7. ANIMACIONES DE SCROLL (Reveal)
   // ==========================================
   // Misma lógica de selección de siempre (encabezados, grillas, cards,
   // titulares sueltos); el motor de animación usa GSAP + ScrollTrigger.batch()

@@ -11,6 +11,19 @@ RewriteRule ^(.*)$ https://arriagadaconsultores.cl/$1 [L,R=301]
 RewriteCond %{THE_REQUEST} \s/index(\.html)?[\s?] [NC]
 RewriteRule ^ / [R=301,L]
 
+# URLs retiradas. Van antes de las reglas de URL limpia para que no las
+# intercepte el 301 de .html.
+#
+# /blog era la cáscara del blog que nunca se escribió: 4 tarjetas con href="#"
+# y ninguna página detrás. Llevaba noindex desde el 18-08, pero Google no volvía
+# a rastrearla (no la enlazaba nada) y seguía indexada. El 410 es la señal para
+# que la suelte, y funciona aunque el archivo siga en el servidor.
+RewriteRule ^blog(\.html)?/?$ - [G,L]
+
+# Propiedad que ya no se publica. El 301 conserva los enlaces externos que
+# apunten ahí y deja a la persona en el listado en vez de en un 404.
+RewriteRule ^oportunidad-de-inversion(\.html)?/?$ /venta-propiedades [R=301,L]
+
 # Redirigir URLs con .html a URLs limpias (301)
 RewriteCond %{THE_REQUEST} \s(.+?)\.html[\s?] [NC]
 RewriteRule ^ %1 [R=301,L]
