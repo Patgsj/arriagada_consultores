@@ -41,25 +41,35 @@ RewriteRule ^ %{REQUEST_URI}.html [L]
 
 # Caché de estáticos. Antes no se enviaba ninguna cabecera de caché:
 # cada visita repetida volvía a descargar CSS, JS e imágenes completos.
+#
+# Ojo con la distinción: el deploy es por FTP y NO renombra los archivos, así
+# que nada acá lleva huella en el nombre. Las imágenes y fuentes casi no cambian
+# (y cuando cambian, cambia también su nombre), así que aguantan un año. El CSS
+# y el JS sí cambian en cada deploy conservando el nombre: con un año de caché,
+# quien ya hubiera visitado el sitio se quedaba con el main.js viejo y no veía
+# ningún cambio. Van con revalidación: el navegador pregunta y recibe un 304 si
+# no cambió, que cuesta casi lo mismo que no preguntar.
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType text/css                  "access plus 1 year"
-  ExpiresByType application/javascript    "access plus 1 year"
-  ExpiresByType text/javascript           "access plus 1 year"
   ExpiresByType image/jpeg                "access plus 1 year"
   ExpiresByType image/png                 "access plus 1 year"
   ExpiresByType image/webp                "access plus 1 year"
   ExpiresByType image/svg+xml             "access plus 1 year"
   ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType text/css                  "access plus 0 seconds"
+  ExpiresByType application/javascript    "access plus 0 seconds"
+  ExpiresByType text/javascript           "access plus 0 seconds"
   ExpiresByType text/html                 "access plus 0 seconds"
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(css|js|jpg|jpeg|png|webp|svg|woff2|JPG)$">
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|woff2|JPG)$">
     Header set Cache-Control "public, max-age=31536000"
   </FilesMatch>
-  # El HTML debe revalidarse siempre: los deploys por FTP no cambian el nombre del archivo.
-  <FilesMatch "\.html$">
+  # CSS, JS y HTML se revalidan siempre: el deploy por FTP no cambia el nombre
+  # del archivo, así que la única forma de que el navegador vea un cambio es
+  # que pregunte.
+  <FilesMatch "\.(css|js|html)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>
