@@ -394,6 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.json()) 
       .then(data => {
         if (data.status === 'success') {
+          if (window.registrarLead) {
+            window.registrarLead('generate_lead', { seccion: 'contacto', cta: 'formulario-contacto' });
+          }
           successModal.classList.remove('hidden');
           setTimeout(() => {
             successModal.classList.remove('opacity-0');
@@ -435,6 +438,13 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.json())
       .then(data => {
         if (data.status === 'success') {
+          if (window.registrarLead) {
+            const asunto = sidebarForm.querySelector('[name="asunto"]');
+            window.registrarLead('generate_lead', {
+              seccion: 'ficha-propiedad',
+              cta: (asunto && asunto.value) || 'formulario-propiedad'
+            });
+          }
           sidebarSuccessModal.classList.remove('hidden');
           setTimeout(() => {
             sidebarSuccessModal.classList.remove('opacity-0');
@@ -459,6 +469,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(closeSidebarModalBtn) closeSidebarModalBtn.addEventListener('click', hideSidebarModal);
   }
+
+  // ==========================================
+  // 7b. CTA QUE ABREN EL ASISTENTE
+  // ==========================================
+  // El widget del chat expone window.chatAsistente al cargar. Si todavía no está
+  // (script async que aún no llegó, o worker caído), el CTA no queda muerto: cae
+  // al formulario de contacto.
+  document.addEventListener('click', (e) => {
+    const boton = e.target.closest('[data-abrir-asistente]');
+    if (!boton) return;
+
+    e.preventDefault();
+    if (window.chatAsistente && window.chatAsistente.abrir) {
+      window.chatAsistente.abrir();
+      if (window.registrarLead) {
+        window.registrarLead('asistente_abierto', { seccion: 'hero', cta: 'cotizar-asistente' });
+      }
+    } else {
+      window.location.href = '/#contacto';
+    }
+  });
 
   // ==========================================
   // 8. ANIMACIONES DE SCROLL (Reveal)
