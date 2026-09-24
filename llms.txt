@@ -22,7 +22,7 @@ Los precios son referenciales y pueden cambiar; el valor vigente se confirma con
 
 ## Asistente virtual (IA)
 
-El sitio tiene un asistente virtual con inteligencia artificial disponible en todas las páginas (ícono naranjo abajo a la derecha). Conversa en español, en lenguaje natural, y puede:
+El sitio tiene un asistente virtual con inteligencia artificial disponible en todas las páginas (botón naranjo «Consulta propiedades o cotiza», abajo a la derecha). Conversa en español, en lenguaje natural, y puede:
 - Mostrar las propiedades en venta (casas, parcelas, terrenos) con precio, ubicación y ficha completa.
 - Entregar un presupuesto tentativo instantáneo para la subdivisión de un terreno, con desglose de costos (precio por lote + Tercero Autorizado del SAG), enviado por correo en un documento Word.
 - Conectar al interesado con un profesional del equipo (WhatsApp o correo) para confirmar el valor final o coordinar una visita.
@@ -31,9 +31,13 @@ El presupuesto que entrega el asistente es siempre referencial; un profesional d
 
 ## Zonas de cobertura
 
-Región de Ñuble: San Carlos, Chillán, Quirihue, San Fabián de Alico.
+Región de Ñuble: San Carlos, Chillán, Quirihue, Ninhue, San Fabián de Alico.
 Región del Maule: Cauquenes.
 Región de Valparaíso: San Felipe, Los Andes, Quillota, La Ligua, Petorca.
+
+## Testimonios
+
+- Fernando Larenas — subdivisión de predio rural en el sector Quirao, comuna de Ninhue (Provincia del Itata, Región de Ñuble): "Quedé conforme con el servicio. Me acompañaron en todo el proceso de la subdivisión." Publicado con su autorización en la portada y en [Subdivisión y Medición de Terrenos](https://arriagadaconsultores.cl/medicion-terrenos).
 
 ## Diferenciador
 
