@@ -320,20 +320,25 @@
   </div>
 </section>
 
-<section id="propiedades" class="w-full bg-white py-16 sm:py-24 relative">
+<section id="propiedades" class="w-full bg-white py-16 sm:py-24 lg:py-8 relative lg:min-h-[calc(100svh-var(--nav-h))]">
   <div class="max-w-7xl mx-auto px-4 sm:px-10 lg:px-20 relative">
     
-    <div class="text-center mb-12">
-      <span class="text-orange-600 font-bold tracking-wider uppercase text-sm rounded-md border border-orange-600 px-3 py-1">Oportunidades Únicas</span>
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-6">
-        Propiedades <span class="text-orange-600">Destacadas</span>
-      </h2>
-      <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+    <!-- En escritorio el encabezado va en una línea (título a la izquierda, bajada a la
+         derecha) para que las tarjetas suban y terminen antes del botón flotante del
+         asistente, y la sección quepa en una pantalla sin asomar "Sobre Nosotros". -->
+    <div class="text-center lg:text-left mb-12 lg:mb-2 lg:flex lg:items-end lg:justify-between lg:gap-10">
+      <div>
+        <span class="text-orange-600 font-bold tracking-wider uppercase text-sm rounded-md border border-orange-600 px-3 py-1">Oportunidades Únicas</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-6 lg:mb-0">
+          Propiedades <span class="text-orange-600">Destacadas</span>
+        </h2>
+      </div>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto lg:mx-0 lg:max-w-md lg:text-right leading-relaxed">
         Desliza para explorar nuestra selección exclusiva de casas y parcelas disponibles en el mercado.
       </p>
     </div>
 
-    <div class="swiper propertiesSwiper w-full !pt-10 !pb-24 px-4 relative">
+    <div class="swiper propertiesSwiper w-full !pt-10 lg:!pt-6 !pb-24 lg:!pb-14 px-4 relative">
       <div class="swiper-wrapper">
 
         <div class="swiper-slide">
