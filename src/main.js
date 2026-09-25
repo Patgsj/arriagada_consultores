@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (capaLotes) capaLotes.remove();
       capaLotes = L.geoJSON(geojson, {
-        style: { color: '#facc15', weight: 2.5, fillColor: '#ea580c', fillOpacity: 0.18 },
+        style: { color: '#facc15', weight: 2.5, fillColor: '#000', fillOpacity: 0.35 },
         onEachFeature: (f, capa) => {
           capa.bindTooltip(`<strong>Lote ${f.properties.lote}</strong><br>${f.properties.superficie}`, {
             permanent: true, direction: 'center', className: 'lote-etiqueta'
