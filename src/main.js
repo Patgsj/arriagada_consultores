@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
               // Solo cambiamos si no tiene ya la clase (evita parpadeo)
               if(!link.classList.contains('bg-white')) {
                   link.classList.remove('bg-orange-600', 'text-white', 'hover:bg-orange-700');
-                  link.classList.add('bg-white', 'text-orange-600', 'hover:bg-gray-100');
+                  link.classList.add('bg-white', 'text-gray-900', 'hover:bg-gray-100');
               }
           } else {
               // Enlace de texto (desktop o mobile): color naranja = "estás aquí".
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (isButton) {
               if(!link.classList.contains('bg-orange-600')) {
                   link.classList.add('bg-orange-600', 'text-white', 'hover:bg-orange-700');
-                  link.classList.remove('bg-white', 'text-orange-600', 'hover:bg-gray-100');
+                  link.classList.remove('bg-white', 'text-gray-900', 'hover:bg-gray-100');
               }
           } else {
               link.classList.add('text-white');
@@ -441,6 +441,138 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       window.location.href = '/#contacto';
     }
+  });
+
+  // ==========================================
+  // 6c. MAPA DE SUBDIVISIÓN (Testimonios)
+  // ==========================================
+  // Botón con data-mapa-subdivision="<geojson>" abre una ventana con el predio
+  // sobre imagen satelital. Leaflet se descarga recién al primer clic, y el
+  // GeoJSON sale del KMZ convertido una vez (solo lote y superficie, sin
+  // datos del propietario). El z-index queda sobre el del asistente (2147483000).
+  const LEAFLET = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/';
+  let leafletListo = null;
+
+  function cargarLeaflet() {
+    if (window.L) return Promise.resolve();
+    if (leafletListo) return leafletListo;
+    leafletListo = new Promise((resolve, reject) => {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = LEAFLET + 'leaflet.css';
+      document.head.appendChild(css);
+      const js = document.createElement('script');
+      js.src = LEAFLET + 'leaflet.js';
+      js.onload = resolve;
+      js.onerror = () => { leafletListo = null; reject(); };
+      document.head.appendChild(js);
+    });
+    return leafletListo;
+  }
+
+  let modalMapa = null;
+  let mapa = null;
+  let capaLotes = null;
+  let botonOrigen = null;
+
+  function crearModalMapa() {
+    modalMapa = document.createElement('div');
+    modalMapa.className = 'fixed inset-0 z-[2147483001] hidden items-center justify-center bg-black/70 p-3 sm:p-6';
+    modalMapa.setAttribute('role', 'dialog');
+    modalMapa.setAttribute('aria-modal', 'true');
+    modalMapa.setAttribute('aria-labelledby', 'mapa-subdivision-titulo');
+    modalMapa.innerHTML = `
+      <div class="relative flex flex-col w-full max-w-5xl h-[80svh] bg-white rounded-2xl overflow-hidden shadow-2xl">
+        <div class="flex items-center justify-between gap-4 px-5 py-3 border-b border-gray-200">
+          <h3 id="mapa-subdivision-titulo" class="text-base sm:text-lg font-bold text-gray-900"></h3>
+          <button type="button" data-cerrar-mapa class="shrink-0 w-10 h-10 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors" aria-label="Cerrar mapa">
+            <i class="fa-solid fa-xmark text-xl" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div data-mapa class="flex-1 bg-gray-900"></div>
+        <p data-mapa-estado class="hidden absolute inset-x-0 top-1/2 z-[500] text-center text-white text-sm"></p>
+      </div>`;
+    document.body.appendChild(modalMapa);
+
+    modalMapa.addEventListener('click', (e) => {
+      if (e.target === modalMapa || e.target.closest('[data-cerrar-mapa]')) cerrarMapa();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modalMapa.classList.contains('hidden')) cerrarMapa();
+    });
+  }
+
+  function estadoMapa(texto) {
+    const p = modalMapa.querySelector('[data-mapa-estado]');
+    p.textContent = texto;
+    p.classList.toggle('hidden', !texto);
+  }
+
+  // Bloqueo del scroll de fondo: fijar el body (overflow:hidden no alcanza en
+  // iOS, y acá el que hace scroll es html por el overflow-x: hidden inline).
+  let scrollGuardado = 0;
+
+  function bloquearScroll() {
+    scrollGuardado = window.scrollY;
+    Object.assign(document.body.style, { position: 'fixed', top: `-${scrollGuardado}px`, left: '0', right: '0' });
+  }
+
+  function desbloquearScroll() {
+    Object.assign(document.body.style, { position: '', top: '', left: '', right: '' });
+    window.scrollTo({ top: scrollGuardado, behavior: 'instant' });
+  }
+
+  async function abrirMapa(boton) {
+    if (!modalMapa) crearModalMapa();
+    botonOrigen = boton;
+    modalMapa.querySelector('#mapa-subdivision-titulo').textContent = boton.dataset.mapaTitulo || 'Subdivisión';
+    modalMapa.classList.remove('hidden');
+    modalMapa.classList.add('flex');
+    bloquearScroll();
+    modalMapa.querySelector('[data-cerrar-mapa]').focus({ preventScroll: true });
+    estadoMapa('Cargando mapa…');
+
+    try {
+      const [, geojson] = await Promise.all([
+        cargarLeaflet(),
+        fetch(boton.dataset.mapaSubdivision).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      ]);
+
+      if (!mapa) {
+        mapa = L.map(modalMapa.querySelector('[data-mapa]'));
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19,
+          attribution: 'Imagen &copy; Esri, Maxar, Earthstar Geographics'
+        }).addTo(mapa);
+      }
+      if (capaLotes) capaLotes.remove();
+      capaLotes = L.geoJSON(geojson, {
+        style: { color: '#facc15', weight: 2.5, fillColor: '#ea580c', fillOpacity: 0.18 },
+        onEachFeature: (f, capa) => {
+          capa.bindTooltip(`<strong>Lote ${f.properties.lote}</strong><br>${f.properties.superficie}`, {
+            permanent: true, direction: 'center', className: 'lote-etiqueta'
+          });
+        }
+      }).addTo(mapa);
+
+      estadoMapa('');
+      mapa.invalidateSize();
+      mapa.fitBounds(capaLotes.getBounds(), { padding: [30, 30] });
+    } catch {
+      estadoMapa('No se pudo cargar el mapa. Inténtalo de nuevo más tarde.');
+    }
+  }
+
+  function cerrarMapa() {
+    modalMapa.classList.add('hidden');
+    modalMapa.classList.remove('flex');
+    desbloquearScroll();
+    if (botonOrigen) botonOrigen.focus({ preventScroll: true });
+  }
+
+  document.addEventListener('click', (e) => {
+    const boton = e.target.closest('[data-mapa-subdivision]');
+    if (boton) abrirMapa(boton);
   });
 
   // ==========================================
