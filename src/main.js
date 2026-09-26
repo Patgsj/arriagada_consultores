@@ -474,23 +474,39 @@ document.addEventListener('DOMContentLoaded', () => {
   let mapa = null;
   let capaLotes = null;
   let botonOrigen = null;
+  let capaSatelite = null;
+
+  // El mapa parte con Ñuble completo y vuela hasta el predio.
+  const VISTA_NUBLE = { centro: [-36.62, -72.1], zoom: 8 };
+  const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MARGEN_PREDIO = { padding: [8, 8] };
+
+  // Los lotes se dibujan recién al llegar al predio: durante el vuelo, a zoom
+  // lejano, el contorno amarillo se ve como una mancha brillante.
+  function mostrarLotes() {
+    capaLotes.addTo(mapa);
+    capaLotes.eachLayer(capa => capa.getElement()?.setAttribute('pathLength', '1'));
+  }
 
   function crearModalMapa() {
     modalMapa = document.createElement('div');
-    modalMapa.className = 'fixed inset-0 z-[2147483001] hidden items-center justify-center bg-black/70 p-3 sm:p-6';
+    modalMapa.className = 'mapa-modal fixed inset-0 z-[2147483001] hidden items-center justify-center bg-black/70 p-3 sm:p-6';
     modalMapa.setAttribute('role', 'dialog');
     modalMapa.setAttribute('aria-modal', 'true');
     modalMapa.setAttribute('aria-labelledby', 'mapa-subdivision-titulo');
     modalMapa.innerHTML = `
-      <div class="relative flex flex-col w-full max-w-5xl h-[80svh] bg-white rounded-2xl overflow-hidden shadow-2xl">
+      <div class="relative flex flex-col w-full max-w-7xl h-[90svh] bg-white rounded-2xl overflow-hidden shadow-2xl">
         <div class="flex items-center justify-between gap-4 px-5 py-3 border-b border-gray-200">
-          <h3 id="mapa-subdivision-titulo" class="text-base sm:text-lg font-bold text-gray-900"></h3>
-          <button type="button" data-cerrar-mapa class="shrink-0 w-10 h-10 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors" aria-label="Cerrar mapa">
+          <h3 id="mapa-subdivision-titulo" class="text-lg sm:text-2xl font-bold text-gray-900"></h3>
+          <button type="button" data-cerrar-mapa class="shrink-0 w-10 h-10 text-gray-500 hover:text-gray-900 transition-colors focus:outline-none focus-visible:text-orange-600" aria-label="Cerrar mapa">
             <i class="fa-solid fa-xmark text-xl" aria-hidden="true"></i>
           </button>
         </div>
         <div data-mapa class="flex-1 bg-gray-900"></div>
-        <p data-mapa-estado class="hidden absolute inset-x-0 top-1/2 z-[500] text-center text-white text-sm"></p>
+        <div data-mapa-estado class="hidden absolute inset-x-0 top-1/2 -translate-y-1/2 z-[500] flex-col items-center gap-3 text-center text-white text-sm">
+          <span data-mapa-spinner class="mapa-spinner" aria-hidden="true"></span>
+          <p data-mapa-texto></p>
+        </div>
       </div>`;
     document.body.appendChild(modalMapa);
 
@@ -502,10 +518,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function estadoMapa(texto) {
-    const p = modalMapa.querySelector('[data-mapa-estado]');
-    p.textContent = texto;
-    p.classList.toggle('hidden', !texto);
+  function estadoMapa(texto, cargando = false) {
+    const estado = modalMapa.querySelector('[data-mapa-estado]');
+    estado.querySelector('[data-mapa-texto]').textContent = texto;
+    estado.querySelector('[data-mapa-spinner]').classList.toggle('hidden', !cargando);
+    estado.classList.toggle('hidden', !texto);
+    estado.classList.toggle('flex', !!texto);
+  }
+
+  // Resuelve cuando las teselas visibles terminaron de cargar (o a los 3 s,
+  // para no dejar el spinner pegado si alguna tesela no responde).
+  function esperarTeselas(fn) {
+    return new Promise((resolve) => {
+      const listo = () => { clearTimeout(t); resolve(); };
+      const t = setTimeout(() => { capaSatelite.off('load', listo); resolve(); }, 3000);
+      capaSatelite.once('load', listo);
+      fn();
+    });
   }
 
   // Bloqueo del scroll de fondo: fijar el body (overflow:hidden no alcanza en
@@ -526,11 +555,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!modalMapa) crearModalMapa();
     botonOrigen = boton;
     modalMapa.querySelector('#mapa-subdivision-titulo').textContent = boton.dataset.mapaTitulo || 'Subdivisión';
+    const contenedor = modalMapa.querySelector('[data-mapa]');
+    contenedor.classList.remove('is-ready');
     modalMapa.classList.remove('hidden');
     modalMapa.classList.add('flex');
+    requestAnimationFrame(() => requestAnimationFrame(() => modalMapa.classList.add('is-open')));
     bloquearScroll();
     modalMapa.querySelector('[data-cerrar-mapa]').focus({ preventScroll: true });
-    estadoMapa('Cargando mapa…');
+    estadoMapa('Cargando mapa…', true);
 
     try {
       const [, geojson] = await Promise.all([
@@ -539,33 +571,54 @@ document.addEventListener('DOMContentLoaded', () => {
       ]);
 
       if (!mapa) {
-        mapa = L.map(modalMapa.querySelector('[data-mapa]'));
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        mapa = L.map(contenedor);
+        capaSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
           maxZoom: 19,
           attribution: 'Imagen &copy; Esri, Maxar, Earthstar Geographics'
         }).addTo(mapa);
       }
       if (capaLotes) capaLotes.remove();
       capaLotes = L.geoJSON(geojson, {
-        style: { color: '#facc15', weight: 2.5, fillColor: '#000', fillOpacity: 0.35 },
+        style: { color: '#facc15', weight: 2.5, fillColor: '#000', fillOpacity: 0.35, className: 'lote-trazo' },
         onEachFeature: (f, capa) => {
           capa.bindTooltip(`<strong>Lote ${f.properties.lote}</strong><br>${f.properties.superficie}`, {
             permanent: true, direction: 'center', className: 'lote-etiqueta'
           });
         }
-      }).addTo(mapa);
+      });
 
-      estadoMapa('');
+      mapa.off('moveend', mostrarLotes);
       mapa.invalidateSize();
-      mapa.fitBounds(capaLotes.getBounds(), { padding: [30, 30] });
+      const limites = capaLotes.getBounds();
+      if (sinMovimiento) {
+        mostrarLotes();
+        await esperarTeselas(() => mapa.fitBounds(limites, MARGEN_PREDIO));
+      } else {
+        await esperarTeselas(() => mapa.setView(VISTA_NUBLE.centro, VISTA_NUBLE.zoom, { animate: false }));
+      }
+      if (modalMapa.classList.contains('hidden')) return; // se cerró mientras cargaba
+      estadoMapa('');
+      contenedor.classList.add('is-ready');
+      if (!sinMovimiento) {
+        mapa.once('moveend', mostrarLotes);
+        mapa.flyToBounds(limites, { ...MARGEN_PREDIO, duration: 2.2 });
+      }
     } catch {
       estadoMapa('No se pudo cargar el mapa. Inténtalo de nuevo más tarde.');
     }
   }
 
   function cerrarMapa() {
-    modalMapa.classList.add('hidden');
-    modalMapa.classList.remove('flex');
+    if (mapa) {
+      mapa.off('moveend', mostrarLotes);
+      mapa.stop();
+    }
+    modalMapa.classList.remove('is-open');
+    setTimeout(() => {
+      if (modalMapa.classList.contains('is-open')) return; // se volvió a abrir
+      modalMapa.classList.add('hidden');
+      modalMapa.classList.remove('flex');
+    }, sinMovimiento ? 0 : 250);
     desbloquearScroll();
     if (botonOrigen) botonOrigen.focus({ preventScroll: true });
   }
