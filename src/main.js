@@ -483,6 +483,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Colores de la leyenda de laspilcas.cl, para los GeoJSON que traen "estado".
   const COLOR_ESTADO = { disponible: '#ffffff', vendido: '#dc2626', reservado: '#fbbf24', tramite: '#06b6d4' };
+  const NOMBRE_ESTADO = { disponible: 'Disponible', reservado: 'Reservada', tramite: 'En trámite', vendido: 'Vendida' };
+  let leyendaMapa = null;
 
   // Los lotes se dibujan recién al llegar al predio: durante el vuelo, a zoom
   // lejano, el contorno amarillo se ve como una mancha brillante.
@@ -595,12 +597,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+      // Leyenda de colores, solo si los lotes traen estado.
+      if (leyendaMapa) { leyendaMapa.remove(); leyendaMapa = null; }
+      if (geojson.features.some(f => COLOR_ESTADO[f.properties.estado])) {
+        leyendaMapa = L.control({ position: 'bottomright' });
+        leyendaMapa.onAdd = () => {
+          const caja = L.DomUtil.create('div');
+          caja.style.cssText = 'background:rgba(17,24,39,.78);color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;line-height:1.9;font-weight:600';
+          caja.innerHTML = Object.keys(NOMBRE_ESTADO).map(k => `<div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:16px;border-radius:4px;box-sizing:border-box;border:2px solid ${COLOR_ESTADO[k]};background:${COLOR_ESTADO[k]}33"></span>${NOMBRE_ESTADO[k]}</div>`).join('');
+          return caja;
+        };
+        leyendaMapa.addTo(mapa);
+      }
+
       mapa.off('moveend', mostrarLotes);
       mapa.invalidateSize();
       const limites = capaLotes.getBounds();
+      const m = Number(boton.dataset.mapaMargen) || MARGEN_PREDIO.padding[0]; // px de aire alrededor de los lotes
+      const margen = { padding: [m, m] };
       if (sinMovimiento) {
         mostrarLotes();
-        await esperarTeselas(() => mapa.fitBounds(limites, MARGEN_PREDIO));
+        await esperarTeselas(() => mapa.fitBounds(limites, margen));
       } else {
         await esperarTeselas(() => mapa.setView(VISTA_NUBLE.centro, VISTA_NUBLE.zoom, { animate: false }));
       }
@@ -609,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
       contenedor.classList.add('is-ready');
       if (!sinMovimiento) {
         mapa.once('moveend', mostrarLotes);
-        mapa.flyToBounds(limites, { ...MARGEN_PREDIO, duration: 2.2 });
+        mapa.flyToBounds(limites, { ...margen, duration: 2.2 });
       }
     } catch {
       estadoMapa('No se pudo cargar el mapa. Inténtalo de nuevo más tarde.');
