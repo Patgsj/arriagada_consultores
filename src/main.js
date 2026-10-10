@@ -481,6 +481,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MARGEN_PREDIO = { padding: [8, 8] };
 
+  // Colores de la leyenda de laspilcas.cl, para los GeoJSON que traen "estado".
+  const COLOR_ESTADO = { disponible: '#ffffff', vendido: '#dc2626', reservado: '#fbbf24', tramite: '#06b6d4' };
+
   // Los lotes se dibujan recién al llegar al predio: durante el vuelo, a zoom
   // lejano, el contorno amarillo se ve como una mancha brillante.
   function mostrarLotes() {
@@ -579,9 +582,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (capaLotes) capaLotes.remove();
       capaLotes = L.geoJSON(geojson, {
-        style: { color: '#facc15', weight: 2.5, fillColor: '#000', fillOpacity: 0.35, className: 'lote-trazo' },
+        style: f => {
+          const color = COLOR_ESTADO[f.properties.estado];
+          return color
+            ? { color, weight: 2.5, fillColor: color, fillOpacity: 0.14, className: 'lote-trazo' }
+            : { color: '#facc15', weight: 2.5, fillColor: '#000', fillOpacity: 0.35, className: 'lote-trazo' };
+        },
         onEachFeature: (f, capa) => {
-          capa.bindTooltip(`<strong>Lote ${f.properties.lote}</strong><br>${f.properties.superficie}`, {
+          capa.bindTooltip(`<strong>${`${boton.dataset.mapaEtiqueta ?? 'Lote'} ${f.properties.lote}`.trim()}</strong>${f.properties.superficie ? `<br>${f.properties.superficie}` : ''}`, {
             permanent: true, direction: 'center', className: 'lote-etiqueta'
           });
         }
