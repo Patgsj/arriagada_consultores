@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
             : { color: '#facc15', weight: 2.5, fillColor: '#000', fillOpacity: 0.35, className: 'lote-trazo' };
         },
         onEachFeature: (f, capa) => {
-          capa.bindTooltip(`<strong>${`${boton.dataset.mapaEtiqueta ?? 'Lote'} ${f.properties.lote}`.trim()}</strong>${f.properties.superficie ? `<br>${f.properties.superficie}` : ''}`, {
+          capa.bindTooltip(`<strong>${`${boton.dataset.mapaEtiqueta ?? 'Lote'} ${f.properties.lote}`.trim()}</strong>`, {
             permanent: true, direction: 'center', className: 'lote-etiqueta'
           });
         }
