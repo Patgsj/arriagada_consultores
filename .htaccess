@@ -73,3 +73,11 @@ RewriteRule ^ %{REQUEST_URI}.html [L]
     Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>
+
+# Archivos internos del repo y del build: nunca públicos.
+# El 21-10-2026 .git/ y .github/ se descargaban en toponuble.cl y laspilcas.cl
+# (subidos por un deploy antiguo); esto los oculta aunque sigan en el servidor.
+RedirectMatch 404 /\.(git|github)(/|$)
+<FilesMatch "^(package(-lock)?\.json|tailwind\.config\.js|postcss\.config\.js)$">
+  Require all denied
+</FilesMatch>
